@@ -3,7 +3,7 @@ package gildedrose.domain.items
 import gildedrose.day
 import gildedrose.domain.N
 import gildedrose.domain.Quality
-import gildedrose.domain.ShelfLife
+import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.aging.Aging

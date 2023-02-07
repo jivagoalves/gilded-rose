@@ -1,6 +1,5 @@
-package gildedrose.domain
+package gildedrose.domain.contracts.lifecycle
 
-import gildedrose.domain.contracts.Lifecycle
 import java.time.LocalDate
 
 data class ShelfLife(

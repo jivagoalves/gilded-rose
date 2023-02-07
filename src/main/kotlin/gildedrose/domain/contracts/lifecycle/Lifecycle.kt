@@ -1,5 +1,7 @@
-package gildedrose.domain.contracts
+package gildedrose.domain.contracts.lifecycle
 
+import gildedrose.domain.contracts.Expirable
+import gildedrose.domain.contracts.Validatable
 import java.time.LocalDate
 import java.time.Period
 import kotlin.time.Duration
