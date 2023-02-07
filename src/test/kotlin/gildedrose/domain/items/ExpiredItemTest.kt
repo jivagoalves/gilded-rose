@@ -45,7 +45,7 @@ class ExpiredItemTest {
                 name = N("Orange"),
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
                 quality = Quality.ZERO
-            )!!
+            )
 
             assertEquals(
                 Quality.ZERO,
@@ -66,7 +66,7 @@ class ExpiredItemTest {
                 name = N("Orange"),
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
                 quality = Quality.FIFTY
-            )!!
+            )
 
             assertEquals(
                 Quality.of(48)!!,

@@ -3,7 +3,7 @@ package gildedrose.domain
 @JvmInline
 value class Quality private constructor(private val value: Int): Comparable<Quality> {
     init {
-        require(value in 0..50 || value == 80) { "Must be in between 0 or 50 or exceptionally 80" }
+        require(value in 0..50) { "Must be in between 0 or 50" }
     }
 
     companion object {

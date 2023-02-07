@@ -17,8 +17,8 @@ class DegradationTest {
             )
 
             assertEquals(
-                Quality.of(80)!!,
-                NONE.degrade(Quality.of(80)!!)
+                Quality.of(30)!!,
+                NONE.degrade(Quality.of(30)!!)
             )
         }
     }

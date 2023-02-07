@@ -4,10 +4,10 @@ import gildedrose.day
 import gildedrose.domain.N
 import gildedrose.domain.Quality
 import gildedrose.domain.ShelfLife
+import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.degradation.Degradation
 import gildedrose.domain.contracts.degradation.Degradation.STANDARD
-import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -44,7 +44,7 @@ class ValidItemTest {
             name = N("Pen"),
             lifecycle = JustValid(Valid(ShelfLife.NOW)!!),
             quality = Quality.FIFTY,
-        )!!
+        )
 
         @Test
         fun `should use standard degradation by default`() {
