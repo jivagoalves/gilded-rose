@@ -5,14 +5,14 @@ import java.time.Period
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 
-interface Lifecycle: Validatable {
+interface Lifecycle: Validatable, Expirable {
     val registeredOn: LocalDate
     val sellBy: LocalDate
 
     override val isValid: Boolean
         get() = !isExpired
 
-    val isExpired: Boolean
+    override val isExpired: Boolean
         get() = registeredOn > sellBy
 
     val sellIn: Duration

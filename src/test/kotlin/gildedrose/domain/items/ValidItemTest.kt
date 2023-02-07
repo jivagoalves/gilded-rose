@@ -4,11 +4,12 @@ import gildedrose.day
 import gildedrose.domain.N
 import gildedrose.domain.Quality
 import gildedrose.domain.ShelfLife
+import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.degradation.Degradation
 import gildedrose.domain.contracts.degradation.Degradation.STANDARD
+import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -26,7 +27,7 @@ class ValidItemTest {
     inner class WhenNotExpiredTest {
         private val nonExpiredValidItem = ValidItem(
             name = N("Apple"),
-            shelfLife = ShelfLife(jan1st, jan2nd),
+            lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
             quality = Quality.FIFTY
         )
 
@@ -37,26 +38,11 @@ class ValidItemTest {
     }
 
     @Nested
-    @DisplayName("when expired")
-    inner class WhenExpiredTest {
-        private val expiredItem: ValidItem? = ValidItem(
-            name = N("Apple"),
-            shelfLife = ShelfLife(jan2nd, jan1st),
-            quality = Quality.ZERO
-        )
-
-        @Test
-        fun `should not be valid`() {
-            assertNull(expiredItem)
-        }
-    }
-
-    @Nested
     @DisplayName("::degrade")
     inner class DegradingValidItemTest {
         private val validItem = ValidItem(
             name = N("Pen"),
-            shelfLife = ShelfLife.NOW,
+            lifecycle = JustValid(Valid(ShelfLife.NOW)!!),
             quality = Quality.FIFTY,
         )!!
 
