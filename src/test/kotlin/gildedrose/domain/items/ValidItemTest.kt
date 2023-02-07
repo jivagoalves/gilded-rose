@@ -56,11 +56,11 @@ class ValidItemTest {
         fun `should accept different degradation strategies`(qualityValue: Int) {
             val pen = validItem.copy(degradation = object : Degradation {
                 override fun degrade(quality: Quality): Quality =
-                    Quality.of(qualityValue)!!
+                    Quality.Standard.of(qualityValue)!!
             })
 
             assertEquals(
-                Quality.of(qualityValue)!!,
+                Quality.Standard.of(qualityValue),
                 pen.degrade().quality
             )
         }

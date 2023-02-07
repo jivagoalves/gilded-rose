@@ -1,29 +1,46 @@
 package gildedrose.domain
 
-@JvmInline
-value class Quality private constructor(private val value: Int): Comparable<Quality> {
-    init {
-        require(value in 0..50) { "Must be in between 0 or 50" }
-    }
+sealed class Quality private constructor(open val value: Int){
+    abstract operator fun minus(n: Int): Quality?
 
     companion object {
-        val ZERO = Quality(0)
-        val FIFTY = Quality(50)
+        val ZERO: Standard = Standard(0)
+        val FIFTY: Standard = Standard(50)
+    }
 
-        fun of(value: Int): Quality? =
-            try {
-                Quality(value)
+    data class Standard(override val value: Int) : Quality(value) {
+        init {
+            require(value in 0..50) { "Must be in between 0 or 50" }
+        }
+
+        override fun toString(): String = "${value}q"
+
+        override operator fun minus(n: Int): Standard? = of(value - n)
+
+        operator fun plus(n: Int): Standard? = of(value + n)
+
+        companion object {
+            fun of(value: Int): Standard? = try {
+                Standard(value)
             } catch (_: IllegalArgumentException) {
                 null
             }
+        }
+    }
+    data class Legendary(override val value: Int) : Quality(value) {
+        companion object {
+            fun of(value: Int): Legendary = Legendary(value)
+        }
+
+        override fun toString(): String = "${value}q"
+
+        override operator fun minus(n: Int): Legendary = this
+
+        operator fun plus(
+            @Suppress("UNUSED_PARAMETER")
+            n: Int
+        ): Legendary = this
+
     }
 
-    override operator fun compareTo(other: Quality): Int = value.compareTo(other.value)
-
-    operator fun minus(n: Int): Quality? = of(value - n)
-
-    operator fun plus(n: Int): Quality? = of(value + n)
-
-    override fun toString(): String = "${value}q"
 }
-

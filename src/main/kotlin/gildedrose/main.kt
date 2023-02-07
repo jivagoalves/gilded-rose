@@ -19,12 +19,12 @@ fun main() {
     val validShelfLife = Valid(ShelfLife(jan1st, jan31st))!!
     val expiredShelfLife = Expired(ShelfLife(jan1st + 1.day, jan1st))!!
 
-    ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.of(9)!!, Degradation.EXPIRED)
+    ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.Standard.of(9)!!, Degradation.EXPIRED)
 
     val items = listOf(
-        ValidItem(N("Orange"), JustValid(validShelfLife), Quality.of(9)!!),
-        ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.of(9)!!, Degradation.EXPIRED),
-        ValidItem(N("Sulfuras"), JustValid(validShelfLife), Quality.of(80)!!, Degradation.NONE),
+        ValidItem(N("Orange"), JustValid(validShelfLife), Quality.Standard.of(9)!!),
+        ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.Standard.of(9)!!, Degradation.EXPIRED),
+        ValidItem(N("Sulfuras"), JustValid(validShelfLife), Quality.Legendary.of(80), Degradation.NONE),
         ExpiredItem(N("Apple"), JustExpired(expiredShelfLife), Quality.ZERO)
     )
 

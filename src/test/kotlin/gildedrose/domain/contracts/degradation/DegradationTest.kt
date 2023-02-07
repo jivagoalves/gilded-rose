@@ -17,8 +17,8 @@ class DegradationTest {
             )
 
             assertEquals(
-                Quality.of(30)!!,
-                NONE.degrade(Quality.of(30)!!)
+                Quality.Standard.of(30)!!,
+                NONE.degrade(Quality.Standard.of(30)!!)
             )
         }
     }
@@ -28,12 +28,12 @@ class DegradationTest {
         @Test
         fun `should decrease the quality by 1`() {
             assertEquals(
-                Quality.of(49)!!,
+                Quality.Standard.of(49)!!,
                 STANDARD.degrade(Quality.FIFTY)
             )
 
             assertEquals(
-                Quality.of(48)!!,
+                Quality.Standard.of(48)!!,
                 STANDARD.degrade(STANDARD.degrade(Quality.FIFTY))
             )
 
@@ -49,12 +49,12 @@ class DegradationTest {
         @Test
         fun `should decrease the quality by 2`() {
             assertEquals(
-                Quality.of(48)!!,
+                Quality.Standard.of(48)!!,
                 EXPIRED.degrade(Quality.FIFTY)
             )
 
             assertEquals(
-                Quality.of(46)!!,
+                Quality.Standard.of(46)!!,
                 EXPIRED.degrade(EXPIRED.degrade(Quality.FIFTY))
             )
         }
@@ -62,7 +62,7 @@ class DegradationTest {
         fun `should be able to decrease the quality to zero`() {
             assertEquals(
                 Quality.ZERO,
-                EXPIRED.degrade(Quality.of(1)!!)
+                EXPIRED.degrade(Quality.Standard.of(1)!!)
             )
         }
     }

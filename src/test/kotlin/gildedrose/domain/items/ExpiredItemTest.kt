@@ -21,7 +21,7 @@ class ExpiredItemTest {
     @Nested
     @DisplayName("when expired")
     inner class WhenExpiredTest {
-        private fun expiredItem(quality: Quality): ExpiredItem? = ExpiredItem(
+        private fun expiredItem(quality: Quality): ExpiredItem = ExpiredItem(
             name = N("Apple"),
             lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
             quality = quality
@@ -69,11 +69,11 @@ class ExpiredItemTest {
             )
 
             assertEquals(
-                Quality.of(48)!!,
+                Quality.Standard.of(48)!!,
                 expiredItem.degrade().quality
             )
             assertEquals(
-                Quality.of(46)!!,
+                Quality.Standard.of(46)!!,
                 expiredItem
                     .degrade()
                     .degrade().quality
