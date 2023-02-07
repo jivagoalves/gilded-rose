@@ -19,4 +19,10 @@ interface Aging {
         override fun age(quality: Quality): Quality =
             (quality - 2) ?: Quality.ZERO
     }
+
+    object REFINEMENT : Aging {
+        override fun age(quality: Quality): Quality =
+            (quality + 1) ?: Quality.FIFTY
+
+    }
 }

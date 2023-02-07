@@ -66,4 +66,20 @@ class AgingTest {
             )
         }
     }
+
+    @Nested
+    inner class RefinementTest {
+        @Test
+        fun `should increase the quality by 1`() {
+            assertEquals(
+                Quality.Standard.of(1)!!,
+                REFINEMENT.age(Quality.ZERO)
+            )
+
+            assertEquals(
+                Quality.Standard.of(2)!!,
+                REFINEMENT.age(REFINEMENT.age(Quality.ZERO))
+            )
+        }
+    }
 }

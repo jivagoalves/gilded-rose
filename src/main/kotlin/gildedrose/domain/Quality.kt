@@ -2,6 +2,7 @@ package gildedrose.domain
 
 sealed class Quality private constructor(open val value: Int){
     abstract operator fun minus(n: Int): Quality?
+    abstract operator fun plus(n: Int): Quality?
 
     companion object {
         val ZERO: Standard = Standard(0)
@@ -17,7 +18,7 @@ sealed class Quality private constructor(open val value: Int){
 
         override operator fun minus(n: Int): Standard? = of(value - n)
 
-        operator fun plus(n: Int): Standard? = of(value + n)
+        override operator fun plus(n: Int): Standard? = of(value + n)
 
         companion object {
             fun of(value: Int): Standard? = try {
@@ -36,7 +37,7 @@ sealed class Quality private constructor(open val value: Int){
 
         override operator fun minus(n: Int): Legendary = this
 
-        operator fun plus(
+        override operator fun plus(
             @Suppress("UNUSED_PARAMETER")
             n: Int
         ): Legendary = this
