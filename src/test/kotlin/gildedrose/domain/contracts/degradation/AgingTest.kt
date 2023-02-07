@@ -1,24 +1,24 @@
 package gildedrose.domain.contracts.degradation
 
 import gildedrose.domain.Quality
-import gildedrose.domain.contracts.degradation.Degradation.*
+import gildedrose.domain.contracts.degradation.Aging.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class DegradationTest {
+class AgingTest {
     @Nested
     inner class NoneTest {
         @Test
         fun `should always keep the original quality`() {
             assertEquals(
                 Quality.ZERO,
-                NONE.degrade(Quality.ZERO)
+                NONE.age(Quality.ZERO)
             )
 
             assertEquals(
                 Quality.Standard.of(30)!!,
-                NONE.degrade(Quality.Standard.of(30)!!)
+                NONE.age(Quality.Standard.of(30)!!)
             )
         }
     }
@@ -29,17 +29,17 @@ class DegradationTest {
         fun `should decrease the quality by 1`() {
             assertEquals(
                 Quality.Standard.of(49)!!,
-                STANDARD.degrade(Quality.FIFTY)
+                STANDARD.age(Quality.FIFTY)
             )
 
             assertEquals(
                 Quality.Standard.of(48)!!,
-                STANDARD.degrade(STANDARD.degrade(Quality.FIFTY))
+                STANDARD.age(STANDARD.age(Quality.FIFTY))
             )
 
             assertEquals(
                 Quality.ZERO,
-                STANDARD.degrade(Quality.ZERO)
+                STANDARD.age(Quality.ZERO)
             )
         }
     }
@@ -50,19 +50,19 @@ class DegradationTest {
         fun `should decrease the quality by 2`() {
             assertEquals(
                 Quality.Standard.of(48)!!,
-                EXPIRED.degrade(Quality.FIFTY)
+                EXPIRED.age(Quality.FIFTY)
             )
 
             assertEquals(
                 Quality.Standard.of(46)!!,
-                EXPIRED.degrade(EXPIRED.degrade(Quality.FIFTY))
+                EXPIRED.age(EXPIRED.age(Quality.FIFTY))
             )
         }
         @Test
         fun `should be able to decrease the quality to zero`() {
             assertEquals(
                 Quality.ZERO,
-                EXPIRED.degrade(Quality.Standard.of(1)!!)
+                EXPIRED.age(Quality.Standard.of(1)!!)
             )
         }
     }

@@ -1,5 +1,5 @@
 package gildedrose.domain.contracts.degradation
 
-interface Degradable<T> {
-    fun degrade(): T
+interface Ageable<T> {
+    fun age(): T
 }

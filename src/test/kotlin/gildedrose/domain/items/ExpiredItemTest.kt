@@ -50,13 +50,13 @@ class ExpiredItemTest {
             assertEquals(
                 Quality.ZERO,
                 expiredItem
-                    .degrade().quality
+                    .age().quality
             )
             assertEquals(
                 Quality.ZERO,
                 expiredItem
-                    .degrade()
-                    .degrade().quality
+                    .age()
+                    .age().quality
             )
         }
 
@@ -70,13 +70,13 @@ class ExpiredItemTest {
 
             assertEquals(
                 Quality.Standard.of(48)!!,
-                expiredItem.degrade().quality
+                expiredItem.age().quality
             )
             assertEquals(
                 Quality.Standard.of(46)!!,
                 expiredItem
-                    .degrade()
-                    .degrade().quality
+                    .age()
+                    .age().quality
             )
         }
     }

@@ -6,8 +6,8 @@ import gildedrose.domain.Quality
 import gildedrose.domain.ShelfLife
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
-import gildedrose.domain.contracts.degradation.Degradation
-import gildedrose.domain.contracts.degradation.Degradation.STANDARD
+import gildedrose.domain.contracts.degradation.Aging
+import gildedrose.domain.contracts.degradation.Aging.STANDARD
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -48,20 +48,20 @@ class ValidItemTest {
 
         @Test
         fun `should use standard degradation by default`() {
-            assertEquals(validItem.degradation, STANDARD)
+            assertEquals(validItem.aging, STANDARD)
         }
 
         @ParameterizedTest(name = "hardcoded {0}")
         @ValueSource(ints = [1, 2, 3, 4, 5])
         fun `should accept different degradation strategies`(qualityValue: Int) {
-            val pen = validItem.copy(degradation = object : Degradation {
-                override fun degrade(quality: Quality): Quality =
+            val pen = validItem.copy(aging = object : Aging {
+                override fun age(quality: Quality): Quality =
                     Quality.Standard.of(qualityValue)!!
             })
 
             assertEquals(
                 Quality.Standard.of(qualityValue),
-                pen.degrade().quality
+                pen.age().quality
             )
         }
     }
