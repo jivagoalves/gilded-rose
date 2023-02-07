@@ -4,7 +4,8 @@ import gildedrose.domain.N
 import gildedrose.domain.Quality
 import gildedrose.domain.ShelfLife
 import gildedrose.domain.contracts.Expired
-import gildedrose.domain.contracts.OneOf
+import gildedrose.domain.contracts.OneOf.JustExpired
+import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.degradation.Degradation
 import gildedrose.domain.items.ExpiredItem
@@ -18,13 +19,13 @@ fun main() {
     val validShelfLife = Valid(ShelfLife(jan1st, jan31st))!!
     val expiredShelfLife = Expired(ShelfLife(jan1st + 1.day, jan1st))!!
 
-    ValidItem(N("Lemon"), OneOf.JustValid(validShelfLife), Quality.of(9)!!, Degradation.EXPIRED)
+    ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.of(9)!!, Degradation.EXPIRED)
 
     val items = listOf(
-        ValidItem(N("Orange"), OneOf.JustValid(validShelfLife), Quality.of(9)!!),
-        ValidItem(N("Lemon"), OneOf.JustValid(validShelfLife), Quality.of(9)!!, Degradation.EXPIRED),
-        ValidItem(N("Sulfuras"), OneOf.JustValid(validShelfLife), Quality.of(80)!!, Degradation.NONE),
-        ExpiredItem(N("Apple"), OneOf.JustExpired(expiredShelfLife), Quality.ZERO)
+        ValidItem(N("Orange"), JustValid(validShelfLife), Quality.of(9)!!),
+        ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.of(9)!!, Degradation.EXPIRED),
+        ValidItem(N("Sulfuras"), JustValid(validShelfLife), Quality.of(80)!!, Degradation.NONE),
+        ExpiredItem(N("Apple"), JustExpired(expiredShelfLife), Quality.ZERO)
     )
 
     generateSequence(items) { it.map(Item::degrade) }
