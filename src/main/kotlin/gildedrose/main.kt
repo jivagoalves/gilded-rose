@@ -7,7 +7,7 @@ import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
-import gildedrose.domain.contracts.degradation.Aging
+import gildedrose.domain.contracts.aging.Aging
 import gildedrose.domain.items.ExpiredItem
 import gildedrose.domain.items.Item
 import gildedrose.domain.items.ValidItem

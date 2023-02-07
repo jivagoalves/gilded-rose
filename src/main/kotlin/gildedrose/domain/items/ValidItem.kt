@@ -5,7 +5,7 @@ import gildedrose.domain.Quality
 import gildedrose.domain.contracts.Lifecycle
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
-import gildedrose.domain.contracts.degradation.Aging
+import gildedrose.domain.contracts.aging.Aging
 
 data class ValidItem constructor(
     override val name: Name,

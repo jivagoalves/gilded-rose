@@ -4,7 +4,7 @@ import gildedrose.domain.Name
 import gildedrose.domain.contracts.Lifecycle
 import gildedrose.domain.contracts.OneOf
 import gildedrose.domain.contracts.Qualifiable
-import gildedrose.domain.contracts.degradation.Ageable
+import gildedrose.domain.contracts.aging.Ageable
 
 sealed class Item(
     private val lifecycle: OneOf<Lifecycle>

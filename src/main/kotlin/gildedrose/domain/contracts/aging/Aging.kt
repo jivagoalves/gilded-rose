@@ -1,4 +1,4 @@
-package gildedrose.domain.contracts.degradation
+package gildedrose.domain.contracts.aging
 
 import gildedrose.domain.Quality
 

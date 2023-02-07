@@ -1,7 +1,7 @@
-package gildedrose.domain.contracts.degradation
+package gildedrose.domain.contracts.aging
 
 import gildedrose.domain.Quality
-import gildedrose.domain.contracts.degradation.Aging.*
+import gildedrose.domain.contracts.aging.Aging.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

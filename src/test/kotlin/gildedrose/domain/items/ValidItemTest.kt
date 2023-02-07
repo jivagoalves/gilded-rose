@@ -6,8 +6,8 @@ import gildedrose.domain.Quality
 import gildedrose.domain.ShelfLife
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
-import gildedrose.domain.contracts.degradation.Aging
-import gildedrose.domain.contracts.degradation.Aging.STANDARD
+import gildedrose.domain.contracts.aging.Aging
+import gildedrose.domain.contracts.aging.Aging.STANDARD
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
