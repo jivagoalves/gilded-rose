@@ -7,18 +7,26 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class AgingTest {
+    private fun ageable(quality: Quality): Ageable {
+       return object : Ageable {
+           override val quality: Quality
+               get() = quality
+
+       }
+    }
+
     @Nested
     inner class NoneTest {
         @Test
         fun `should always keep the original quality`() {
             assertEquals(
                 Quality.ZERO,
-                NONE.age(Quality.ZERO)
+                NONE.age(ageable(Quality.ZERO))
             )
 
             assertEquals(
                 Quality.Standard.of(30)!!,
-                NONE.age(Quality.Standard.of(30)!!)
+                NONE.age(ageable(Quality.Standard.of(30)!!))
             )
         }
     }
@@ -29,17 +37,17 @@ class AgingTest {
         fun `should decrease the quality by 1`() {
             assertEquals(
                 Quality.Standard.of(49)!!,
-                STANDARD.age(Quality.FIFTY)
+                STANDARD.age(ageable(Quality.FIFTY))
             )
 
             assertEquals(
                 Quality.Standard.of(48)!!,
-                STANDARD.age(STANDARD.age(Quality.FIFTY))
+                STANDARD.age(ageable(Quality.Standard.of(49)!!))
             )
 
             assertEquals(
                 Quality.ZERO,
-                STANDARD.age(Quality.ZERO)
+                STANDARD.age(ageable(Quality.ZERO))
             )
         }
     }
@@ -50,19 +58,19 @@ class AgingTest {
         fun `should decrease the quality by 2`() {
             assertEquals(
                 Quality.Standard.of(48)!!,
-                EXPIRED.age(Quality.FIFTY)
+                EXPIRED.age(ageable(Quality.FIFTY))
             )
 
             assertEquals(
                 Quality.Standard.of(46)!!,
-                EXPIRED.age(EXPIRED.age(Quality.FIFTY))
+                EXPIRED.age(ageable(Quality.Standard.of(48)!!))
             )
         }
         @Test
         fun `should be able to decrease the quality to zero`() {
             assertEquals(
                 Quality.ZERO,
-                EXPIRED.age(Quality.Standard.of(1)!!)
+                EXPIRED.age(ageable(Quality.Standard.of(1)!!,))
             )
         }
     }
@@ -73,12 +81,12 @@ class AgingTest {
         fun `should increase the quality by 1`() {
             assertEquals(
                 Quality.Standard.of(1)!!,
-                REFINEMENT.age(Quality.ZERO)
+                REFINEMENT.age(ageable(Quality.ZERO))
             )
 
             assertEquals(
                 Quality.Standard.of(2)!!,
-                REFINEMENT.age(REFINEMENT.age(Quality.ZERO))
+                REFINEMENT.age(ageable(Quality.Standard.of(1)!!))
             )
         }
     }

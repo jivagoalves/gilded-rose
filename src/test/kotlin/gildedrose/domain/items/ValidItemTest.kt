@@ -3,11 +3,12 @@ package gildedrose.domain.items
 import gildedrose.day
 import gildedrose.domain.N
 import gildedrose.domain.Quality
-import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
+import gildedrose.domain.contracts.aging.Ageable
 import gildedrose.domain.contracts.aging.Aging
 import gildedrose.domain.contracts.aging.Aging.STANDARD
+import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -55,7 +56,7 @@ class ValidItemTest {
         @ValueSource(ints = [1, 2, 3, 4, 5])
         fun `should accept different degradation strategies`(qualityValue: Int) {
             val pen = validItem.copy(aging = object : Aging {
-                override fun age(quality: Quality): Quality =
+                override fun age(ageable: Ageable): Quality =
                     Quality.Standard.of(qualityValue)!!
             })
 

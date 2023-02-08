@@ -3,9 +3,9 @@ package gildedrose.domain.items
 import gildedrose.domain.Name
 import gildedrose.domain.Quality
 import gildedrose.domain.contracts.Expired
-import gildedrose.domain.contracts.lifecycle.Lifecycle
 import gildedrose.domain.contracts.OneOf.JustExpired
 import gildedrose.domain.contracts.aging.Aging.EXPIRED
+import gildedrose.domain.contracts.lifecycle.Lifecycle
 
 data class ExpiredItem constructor(
     override val name: Name,
@@ -18,6 +18,6 @@ data class ExpiredItem constructor(
         super.toString()
 
     override fun age(): ExpiredItem =
-        copy(quality = degradation.age(quality))
+        copy(quality = degradation.age(this))
 
 }

@@ -2,10 +2,10 @@ package gildedrose.domain.items
 
 import gildedrose.domain.Name
 import gildedrose.domain.Quality
-import gildedrose.domain.contracts.lifecycle.Lifecycle
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.aging.Aging
+import gildedrose.domain.contracts.lifecycle.Lifecycle
 
 data class ValidItem constructor(
     override val name: Name,
@@ -18,6 +18,6 @@ data class ValidItem constructor(
         super.toString()
 
     override fun age(): ValidItem =
-        copy(quality = aging.age(quality))
+        copy(quality = aging.age(this))
 
 }
