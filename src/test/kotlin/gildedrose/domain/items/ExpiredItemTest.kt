@@ -3,9 +3,9 @@ package gildedrose.domain.items
 import gildedrose.day
 import gildedrose.domain.N
 import gildedrose.domain.Quality
-import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
+import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -22,7 +22,7 @@ class ExpiredItemTest {
     @DisplayName("when expired")
     inner class WhenExpiredTest {
         private fun expiredItem(quality: Quality): ExpiredItem = ExpiredItem(
-            name = N("Apple"),
+            name = N("Apple")!!,
             lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
             quality = quality
         )
@@ -42,7 +42,7 @@ class ExpiredItemTest {
         @Test
         fun `should never decrease the quality below zero`() {
             val expiredItem = ExpiredItem(
-                name = N("Orange"),
+                name = N("Orange")!!,
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
                 quality = Quality.ZERO
             )
@@ -63,7 +63,7 @@ class ExpiredItemTest {
         @Test
         fun `should decrease twice as fast`() {
             val expiredItem = ExpiredItem(
-                name = N("Orange"),
+                name = N("Orange")!!,
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
                 quality = Quality.FIFTY
             )

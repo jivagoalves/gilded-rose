@@ -27,7 +27,7 @@ class ValidItemTest {
     @DisplayName("when not expired")
     inner class WhenNotExpiredTest {
         private val nonExpiredValidItem = ValidItem(
-            name = N("Apple"),
+            name = N("Apple")!!,
             lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
             quality = Quality.FIFTY
         )
@@ -42,7 +42,7 @@ class ValidItemTest {
     @DisplayName("::degrade")
     inner class DegradingValidItemTest {
         private val validItem = ValidItem(
-            name = N("Pen"),
+            name = N("Pen")!!,
             lifecycle = JustValid(Valid(ShelfLife.NOW)!!),
             quality = Quality.FIFTY,
         )

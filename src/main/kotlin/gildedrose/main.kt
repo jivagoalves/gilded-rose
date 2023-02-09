@@ -21,16 +21,16 @@ fun main() {
     val validLegendaryLife = Valid(LegendaryLife(jan1st))!!
     val expiredShelfLife = Expired(ShelfLife(jan1st + 1.day, jan1st))!!
 
-    ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.Standard.of(9)!!, Aging.EXPIRED)
+    ValidItem(N("Lemon")!!, JustValid(validShelfLife), Quality.Standard.of(9)!!, Aging.EXPIRED)
 
     val stock = Stock.of(
         listOf(
-            ValidItem(N("Orange"), JustValid(validShelfLife), Quality.Standard.of(9)!!),
-            ValidItem(N("Lemon"), JustValid(validShelfLife), Quality.Standard.of(9)!!, Aging.EXPIRED),
-            ValidItem(N("Sulfuras"), JustValid(validLegendaryLife), Quality.Legendary.of(80), Aging.NONE),
-            ValidItem(N("Aged Brie"), JustValid(validShelfLife), Quality.Standard.of(42)!!, Aging.REFINEMENT),
-            ValidItem(N("Pass"), JustValid(validShelfLife), Quality.Standard.of(42)!!, Aging.REFINEMENT),
-            ExpiredItem(N("Apple"), JustExpired(expiredShelfLife), Quality.ZERO)
+            ValidItem(N("Orange")!!, JustValid(validShelfLife), Quality.Standard.of(9)!!),
+            ValidItem(N("Lemon")!!, JustValid(validShelfLife), Quality.Standard.of(9)!!, Aging.EXPIRED),
+            ValidItem(N("Sulfuras")!!, JustValid(validLegendaryLife), Quality.Legendary.of(80), Aging.NONE),
+            ValidItem(N("Aged Brie")!!, JustValid(validShelfLife), Quality.Standard.of(42)!!, Aging.REFINEMENT),
+            ValidItem(N("Pass")!!, JustValid(validShelfLife), Quality.Standard.of(42)!!, Aging.REFINEMENT),
+            ExpiredItem(N("Apple")!!, JustExpired(expiredShelfLife), Quality.ZERO)
         )
     )
 

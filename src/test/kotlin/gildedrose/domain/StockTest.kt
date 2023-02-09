@@ -30,7 +30,7 @@ class StockTest {
     @DisplayName("when there are items")
     inner class WhenListOfItemsIsNotEmpty {
         private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife.NOW)!!)
-        private val item = ValidItem(N("Apple"), lifecycle, Quality.FIFTY)
+        private val item = ValidItem(N("Apple")!!, lifecycle, Quality.FIFTY)
         private val stock = Stock.of(listOf(item))
 
         @Test
