@@ -7,7 +7,7 @@ import gildedrose.domain.contracts.OneOf.JustExpired
 import gildedrose.domain.contracts.lifecycle.Lifecycle
 import gildedrose.domain.contracts.aging.Aging.Expired as ExpiredAging
 
-data class ExpiredItem constructor(
+data class ExpiredItem(
     override val name: Name,
     val lifecycle: JustExpired<Lifecycle>,
     override val quality: Quality

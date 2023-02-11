@@ -4,6 +4,8 @@ sealed class Quality private constructor(open val value: Int){
     abstract operator fun minus(n: Int): Quality?
     abstract operator fun plus(n: Int): Quality?
 
+    override fun toString(): String = "${value}q"
+
     companion object {
         val ZERO: Standard = Standard(0)
         val FIFTY: Standard = Standard(50)
@@ -14,7 +16,7 @@ sealed class Quality private constructor(open val value: Int){
             require(value in 0..50) { "Must be in between 0 or 50" }
         }
 
-        override fun toString(): String = "${value}q"
+        override fun toString(): String = super.toString()
 
         override operator fun minus(n: Int): Standard? = of(value - n)
 
@@ -33,7 +35,7 @@ sealed class Quality private constructor(open val value: Int){
             fun of(value: Int): Legendary = Legendary(value)
         }
 
-        override fun toString(): String = "${value}q"
+        override fun toString(): String = super.toString()
 
         override operator fun minus(n: Int): Legendary = this
 
