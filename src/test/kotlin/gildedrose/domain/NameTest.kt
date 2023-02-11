@@ -21,7 +21,7 @@ class NameTest {
     @DisplayName("when name is blank")
     inner class WhenNameIsBlank {
         @Test
-        fun `should not allow blank names`() {
+        fun `should not be valid`() {
             assertNull(N(""))
         }
     }
