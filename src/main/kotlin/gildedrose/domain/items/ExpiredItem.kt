@@ -4,15 +4,15 @@ import gildedrose.domain.Name
 import gildedrose.domain.Quality
 import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
-import gildedrose.domain.contracts.aging.Aging.EXPIRED
 import gildedrose.domain.contracts.lifecycle.Lifecycle
+import gildedrose.domain.contracts.aging.Aging.Expired as ExpiredAging
 
 data class ExpiredItem constructor(
     override val name: Name,
     val lifecycle: JustExpired<Lifecycle>,
     override val quality: Quality
 ) : Item(JustExpired(Expired(lifecycle.value)!!)) {
-    private val degradation = EXPIRED
+    private val degradation = ExpiredAging
 
     override fun toString(): String =
         super.toString()

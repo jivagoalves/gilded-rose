@@ -6,28 +6,28 @@ import kotlin.time.Duration.Companion.days
 interface Aging {
     fun age(ageable: Ageable): Quality
 
-    object NONE : Aging {
+    object None : Aging {
         override fun age(ageable: Ageable): Quality =
             ageable.quality
     }
 
-    object STANDARD : Aging {
+    object Standard : Aging {
         override fun age(ageable: Ageable): Quality =
             (ageable.quality - 1) ?: Quality.ZERO
     }
 
-    object EXPIRED : Aging {
+    object Expired : Aging {
         override fun age(ageable: Ageable): Quality =
             (ageable.quality - 2) ?: Quality.ZERO
     }
 
-    object REFINEMENT : Aging {
+    object Improvement : Aging {
         override fun age(ageable: Ageable): Quality =
             (ageable.quality + 1) ?: Quality.FIFTY
 
     }
 
-    object TIMED_REFINEMENT {
+    object TimedImprovement {
         fun age(ageable: Ageable): Quality =
             when {
                 ageable.sellIn < 0.days -> Quality.ZERO

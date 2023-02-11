@@ -11,7 +11,7 @@ data class ValidItem constructor(
     override val name: Name,
     val lifecycle: JustValid<Lifecycle>,
     override val quality: Quality,
-    val aging: Aging = Aging.STANDARD
+    val aging: Aging = Aging.Standard
 ) : Item(JustValid(Valid(lifecycle.value)!!)) {
 
     override fun toString(): String =

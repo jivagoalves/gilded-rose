@@ -7,7 +7,7 @@ import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.aging.Ageable
 import gildedrose.domain.contracts.aging.Aging
-import gildedrose.domain.contracts.aging.Aging.STANDARD
+import gildedrose.domain.contracts.aging.Aging.Standard
 import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -49,7 +49,7 @@ class ValidItemTest {
 
         @Test
         fun `should use standard degradation by default`() {
-            assertEquals(validItem.aging, STANDARD)
+            assertEquals(validItem.aging, Standard)
         }
 
         @ParameterizedTest(name = "hardcoded {0}")
