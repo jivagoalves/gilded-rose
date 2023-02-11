@@ -39,10 +39,7 @@ sealed class Quality private constructor(open val value: Int){
 
         override operator fun minus(n: Int): Legendary = this
 
-        override operator fun plus(
-            @Suppress("UNUSED_PARAMETER")
-            n: Int
-        ): Legendary = this
+        override operator fun plus(n: Int): Legendary = this
 
     }
 
