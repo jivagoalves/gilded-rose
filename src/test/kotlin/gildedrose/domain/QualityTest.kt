@@ -23,6 +23,18 @@ class QualityTest {
         }
 
         @Test
+        fun `minus - should be coerced at least 0`() {
+            assertEquals(Quality.ZERO, Quality.ZERO - 1)
+            assertEquals(Quality.ZERO, Quality.Standard.of(1)!! - 2)
+        }
+
+        @Test
+        fun `plus - should be coerced at most 50`() {
+            assertEquals(Quality.FIFTY, Quality.FIFTY + 1)
+            assertEquals(Quality.FIFTY, Quality.Standard.of(49)!! + 2)
+        }
+
+        @Test
         fun `should be capable of being increased or decreased`() {
             assertEquals(Quality.Standard(0), Quality.Standard(1) - 1)
             assertEquals(Quality.Standard(2), Quality.Standard(1) + 1)
@@ -30,8 +42,8 @@ class QualityTest {
 
         @Test
         fun `its value should be between 0 and 50`() {
-            assertNull(Quality.ZERO - 1)
-            assertNull(Quality.FIFTY + 1)
+            assertNull(Quality.Standard.of(-1))
+            assertNull(Quality.Standard.of(51))
             for (value in 0..50) {
                 assertNotNull(Quality.Standard.of(value))
             }

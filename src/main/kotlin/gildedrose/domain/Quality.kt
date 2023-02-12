@@ -1,8 +1,8 @@
 package gildedrose.domain
 
 sealed class Quality private constructor(open val value: Int){
-    abstract operator fun minus(n: Int): Quality?
-    abstract operator fun plus(n: Int): Quality?
+    abstract operator fun minus(n: Int): Quality
+    abstract operator fun plus(n: Int): Quality
 
     override fun toString(): String = "${value}q"
 
@@ -18,9 +18,9 @@ sealed class Quality private constructor(open val value: Int){
 
         override fun toString(): String = super.toString()
 
-        override operator fun minus(n: Int): Standard? = of(value - n)
+        override operator fun minus(n: Int): Standard = of(value - n) ?: ZERO
 
-        override operator fun plus(n: Int): Standard? = of(value + n)
+        override operator fun plus(n: Int): Standard = of(value + n) ?: FIFTY
 
         companion object {
             fun of(value: Int): Standard? = try {

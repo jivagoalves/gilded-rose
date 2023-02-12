@@ -13,17 +13,17 @@ interface Aging {
 
     object Standard : Aging {
         override fun age(ageable: Ageable): Quality =
-            (ageable.quality - 1) ?: Quality.ZERO
+            ageable.quality - 1
     }
 
     object Expired : Aging {
         override fun age(ageable: Ageable): Quality =
-            (ageable.quality - 2) ?: Quality.ZERO
+            ageable.quality - 2
     }
 
     object Improvement : Aging {
         override fun age(ageable: Ageable): Quality =
-            (ageable.quality + 1) ?: Quality.FIFTY
+            ageable.quality + 1
 
     }
 
@@ -31,9 +31,9 @@ interface Aging {
         fun age(ageable: Ageable): Quality =
             when {
                 ageable.sellIn < 0.days -> Quality.ZERO
-                ageable.sellIn <= 5.days -> (ageable.quality + 3) ?: Quality.FIFTY
-                ageable.sellIn <= 10.days -> (ageable.quality + 2) ?: Quality.FIFTY
-                else -> (ageable.quality + 1) ?: Quality.FIFTY
+                ageable.sellIn <= 5.days -> ageable.quality + 3
+                ageable.sellIn <= 10.days -> ageable.quality + 2
+                else -> ageable.quality + 1
             }
 
 
