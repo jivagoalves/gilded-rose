@@ -12,12 +12,12 @@ data class ExpiredItem(
     val lifecycle: JustExpired<Lifecycle>,
     override val quality: Quality
 ) : Item(JustExpired(Expired(lifecycle.value)!!)) {
-    private val degradation = ExpiredAging
+    private val aging = ExpiredAging
 
     override fun toString(): String =
         super.toString()
 
     override fun age(): ExpiredItem =
-        copy(quality = degradation.age(this))
+        copy(quality = aging.age(this))
 
 }

@@ -1,7 +1,6 @@
 package gildedrose
 
 import gildedrose.domain.N
-import gildedrose.domain.quality.Standard
 import gildedrose.domain.Stock
 import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
@@ -13,6 +12,7 @@ import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.domain.items.ExpiredItem
 import gildedrose.domain.items.ValidItem
 import gildedrose.domain.quality.Legendary
+import gildedrose.domain.quality.Standard
 import java.time.LocalDate
 
 fun main() {
@@ -30,8 +30,8 @@ fun main() {
             ValidItem(N("Lemon")!!, JustValid(validShelfLife), Standard.of(9)!!, Aging.Expired),
             ValidItem(N("Sulfuras")!!, JustValid(validLegendaryLife), Legendary.of(80), Aging.None),
             ValidItem(N("Aged Brie")!!, JustValid(validShelfLife), Standard.of(42)!!, Aging.Improvement),
-            ValidItem(N("Pass")!!, JustValid(validShelfLife), Standard.of(42)!!, Aging.Improvement),
-            ExpiredItem(N("Apple")!!, JustExpired(expiredShelfLife), Standard.ZERO)
+            ValidItem(N("Pass")!!, JustValid(validShelfLife), Standard.of(42)!!, Aging.TimedImprovement),
+            ExpiredItem(N("Apple")!!, JustExpired(expiredShelfLife), Standard.of(13)!!)
         )
     )
 
