@@ -2,13 +2,13 @@ package gildedrose.domain.items
 
 import gildedrose.day
 import gildedrose.domain.N
-import gildedrose.domain.Quality
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.aging.Ageable
 import gildedrose.domain.contracts.aging.Aging
-import gildedrose.domain.contracts.aging.Aging.Standard
 import gildedrose.domain.contracts.lifecycle.ShelfLife
+import gildedrose.domain.quality.Quality
+import gildedrose.domain.quality.Standard
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -29,7 +29,7 @@ class ValidItemTest {
         private val nonExpiredValidItem = ValidItem(
             name = N("Apple")!!,
             lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
-            quality = Quality.FIFTY
+            quality = Standard.FIFTY
         )
 
         @Test
@@ -44,12 +44,12 @@ class ValidItemTest {
         private val validItem = ValidItem(
             name = N("Pen")!!,
             lifecycle = JustValid(Valid(ShelfLife.NOW)!!),
-            quality = Quality.FIFTY,
+            quality = Standard.FIFTY,
         )
 
         @Test
         fun `should use standard degradation by default`() {
-            assertEquals(validItem.aging, Standard)
+            assertEquals(validItem.aging, Aging.Standard)
         }
 
         @ParameterizedTest(name = "hardcoded {0}")
@@ -57,11 +57,11 @@ class ValidItemTest {
         fun `should accept different degradation strategies`(qualityValue: Int) {
             val pen = validItem.copy(aging = object : Aging {
                 override fun age(ageable: Ageable): Quality =
-                    Quality.Standard.of(qualityValue)!!
+                    Standard.of(qualityValue)!!
             })
 
             assertEquals(
-                Quality.Standard.of(qualityValue),
+                Standard.of(qualityValue),
                 pen.age().quality
             )
         }

@@ -1,10 +1,10 @@
 package gildedrose.domain.items
 
 import gildedrose.domain.Name
-import gildedrose.domain.Quality
 import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
 import gildedrose.domain.contracts.lifecycle.Lifecycle
+import gildedrose.domain.quality.Quality
 import gildedrose.domain.contracts.aging.Aging.Expired as ExpiredAging
 
 data class ExpiredItem(

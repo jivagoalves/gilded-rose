@@ -1,7 +1,7 @@
 package gildedrose
 
 import gildedrose.domain.N
-import gildedrose.domain.Quality
+import gildedrose.domain.quality.Standard
 import gildedrose.domain.Stock
 import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
@@ -12,6 +12,7 @@ import gildedrose.domain.contracts.lifecycle.LegendaryLife
 import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.domain.items.ExpiredItem
 import gildedrose.domain.items.ValidItem
+import gildedrose.domain.quality.Legendary
 import java.time.LocalDate
 
 fun main() {
@@ -21,16 +22,16 @@ fun main() {
     val validLegendaryLife = Valid(LegendaryLife(jan1st))!!
     val expiredShelfLife = Expired(ShelfLife(jan1st + 1.day, jan1st))!!
 
-    ValidItem(N("Lemon")!!, JustValid(validShelfLife), Quality.Standard.of(9)!!, Aging.Expired)
+    ValidItem(N("Lemon")!!, JustValid(validShelfLife), Standard.of(9)!!, Aging.Expired)
 
     val stock = Stock.of(
         listOf(
-            ValidItem(N("Orange")!!, JustValid(validShelfLife), Quality.Standard.of(9)!!),
-            ValidItem(N("Lemon")!!, JustValid(validShelfLife), Quality.Standard.of(9)!!, Aging.Expired),
-            ValidItem(N("Sulfuras")!!, JustValid(validLegendaryLife), Quality.Legendary.of(80), Aging.None),
-            ValidItem(N("Aged Brie")!!, JustValid(validShelfLife), Quality.Standard.of(42)!!, Aging.Improvement),
-            ValidItem(N("Pass")!!, JustValid(validShelfLife), Quality.Standard.of(42)!!, Aging.Improvement),
-            ExpiredItem(N("Apple")!!, JustExpired(expiredShelfLife), Quality.ZERO)
+            ValidItem(N("Orange")!!, JustValid(validShelfLife), Standard.of(9)!!),
+            ValidItem(N("Lemon")!!, JustValid(validShelfLife), Standard.of(9)!!, Aging.Expired),
+            ValidItem(N("Sulfuras")!!, JustValid(validLegendaryLife), Legendary.of(80), Aging.None),
+            ValidItem(N("Aged Brie")!!, JustValid(validShelfLife), Standard.of(42)!!, Aging.Improvement),
+            ValidItem(N("Pass")!!, JustValid(validShelfLife), Standard.of(42)!!, Aging.Improvement),
+            ExpiredItem(N("Apple")!!, JustExpired(expiredShelfLife), Standard.ZERO)
         )
     )
 

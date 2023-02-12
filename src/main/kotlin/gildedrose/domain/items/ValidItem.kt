@@ -1,7 +1,7 @@
 package gildedrose.domain.items
 
 import gildedrose.domain.Name
-import gildedrose.domain.Quality
+import gildedrose.domain.quality.Quality
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.aging.Aging

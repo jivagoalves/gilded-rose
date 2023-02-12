@@ -2,7 +2,8 @@ package gildedrose.domain.items
 
 import gildedrose.day
 import gildedrose.domain.N
-import gildedrose.domain.Quality
+import gildedrose.domain.quality.Quality
+import gildedrose.domain.quality.Standard
 import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
 import gildedrose.domain.contracts.lifecycle.ShelfLife
@@ -29,7 +30,7 @@ class ExpiredItemTest {
 
         @Test
         fun `should be valid`() {
-            assertNotNull(expiredItem(quality = Quality.ZERO))
+            assertNotNull(expiredItem(quality = Standard.ZERO))
         }
     }
 
@@ -44,16 +45,16 @@ class ExpiredItemTest {
             val expiredItem = ExpiredItem(
                 name = N("Orange")!!,
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
-                quality = Quality.ZERO
+                quality = Standard.ZERO
             )
 
             assertEquals(
-                Quality.ZERO,
+                Standard.ZERO,
                 expiredItem
                     .age().quality
             )
             assertEquals(
-                Quality.ZERO,
+                Standard.ZERO,
                 expiredItem
                     .age()
                     .age().quality
@@ -65,15 +66,15 @@ class ExpiredItemTest {
             val expiredItem = ExpiredItem(
                 name = N("Orange")!!,
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
-                quality = Quality.FIFTY
+                quality = Standard.FIFTY
             )
 
             assertEquals(
-                Quality.Standard.of(48)!!,
+                Standard.of(48)!!,
                 expiredItem.age().quality
             )
             assertEquals(
-                Quality.Standard.of(46)!!,
+                Standard.of(46)!!,
                 expiredItem
                     .age()
                     .age().quality

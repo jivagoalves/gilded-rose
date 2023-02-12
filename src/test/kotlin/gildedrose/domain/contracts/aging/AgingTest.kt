@@ -1,6 +1,7 @@
 package gildedrose.domain.contracts.aging
 
-import gildedrose.domain.Quality
+import gildedrose.domain.quality.Quality
+import gildedrose.domain.quality.Standard as StandardQuality
 import gildedrose.domain.contracts.aging.Aging.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -27,13 +28,13 @@ class AgingTest {
         @Test
         fun `should always keep the original quality`() {
             assertEquals(
-                Quality.ZERO,
-                None.age(ageable(Quality.ZERO))
+                StandardQuality.ZERO,
+                None.age(ageable(StandardQuality.ZERO))
             )
 
             assertEquals(
-                Quality.Standard.of(30)!!,
-                None.age(ageable(Quality.Standard.of(30)!!))
+                StandardQuality.of(30)!!,
+                None.age(ageable(StandardQuality.of(30)!!))
             )
         }
     }
@@ -43,18 +44,18 @@ class AgingTest {
         @Test
         fun `should decrease the quality by 1`() {
             assertEquals(
-                Quality.Standard.of(49)!!,
-                Standard.age(ageable(Quality.FIFTY))
+                StandardQuality.of(49)!!,
+                Standard.age(ageable(StandardQuality.FIFTY))
             )
 
             assertEquals(
-                Quality.Standard.of(48)!!,
-                Standard.age(ageable(Quality.Standard.of(49)!!))
+                StandardQuality.of(48)!!,
+                Standard.age(ageable(StandardQuality.of(49)!!))
             )
 
             assertEquals(
-                Quality.ZERO,
-                Standard.age(ageable(Quality.ZERO))
+                StandardQuality.ZERO,
+                Standard.age(ageable(StandardQuality.ZERO))
             )
         }
     }
@@ -64,20 +65,20 @@ class AgingTest {
         @Test
         fun `should decrease the quality by 2`() {
             assertEquals(
-                Quality.Standard.of(48)!!,
-                Expired.age(ageable(Quality.FIFTY))
+                StandardQuality.of(48)!!,
+                Expired.age(ageable(StandardQuality.FIFTY))
             )
 
             assertEquals(
-                Quality.Standard.of(46)!!,
-                Expired.age(ageable(Quality.Standard.of(48)!!))
+                StandardQuality.of(46)!!,
+                Expired.age(ageable(StandardQuality.of(48)!!))
             )
         }
         @Test
         fun `should be able to decrease the quality to zero`() {
             assertEquals(
-                Quality.ZERO,
-                Expired.age(ageable(Quality.Standard.of(1)!!))
+                StandardQuality.ZERO,
+                Expired.age(ageable(StandardQuality.of(1)!!))
             )
         }
     }
@@ -87,13 +88,13 @@ class AgingTest {
         @Test
         fun `should increase the quality by 1`() {
             assertEquals(
-                Quality.Standard.of(1)!!,
-                Improvement.age(ageable(Quality.ZERO))
+                StandardQuality.of(1)!!,
+                Improvement.age(ageable(StandardQuality.ZERO))
             )
 
             assertEquals(
-                Quality.Standard.of(2)!!,
-                Improvement.age(ageable(Quality.Standard.of(1)!!))
+                StandardQuality.of(2)!!,
+                Improvement.age(ageable(StandardQuality.of(1)!!))
             )
         }
     }
@@ -105,10 +106,10 @@ class AgingTest {
         @ValueSource(ints = [0, 5, 6, 10, 11, 9999])
         fun `should keep the quality at 50 even with days left to sell by`(sellIn: Int) {
             assertEquals(
-                Quality.FIFTY,
+                StandardQuality.FIFTY,
                 TimedImprovement.age(
                     ageable(
-                        Quality.FIFTY,
+                        StandardQuality.FIFTY,
                         sellIn
                     )
                 )
@@ -122,10 +123,10 @@ class AgingTest {
             @ValueSource(ints = [11, 12, 13, 50, 100, 1000])
             fun `should increase the quality by 1`(sellIn: Int) {
                 assertEquals(
-                    Quality.Standard.of(1)!!,
+                    StandardQuality.of(1)!!,
                     TimedImprovement.age(
                         ageable(
-                            Quality.ZERO,
+                            StandardQuality.ZERO,
                             sellIn
                         )
                     )
@@ -140,10 +141,10 @@ class AgingTest {
             @ValueSource(ints = [10, 9, 8, 7, 6])
             fun `should increase the quality by 2`(sellIn: Int) {
                 assertEquals(
-                    Quality.Standard.of(2)!!,
+                    StandardQuality.of(2)!!,
                     TimedImprovement.age(
                         ageable(
-                            Quality.ZERO,
+                            StandardQuality.ZERO,
                             sellIn
                         )
                     )
@@ -158,10 +159,10 @@ class AgingTest {
             @ValueSource(ints = [5, 4, 3, 2, 1, 0])
             fun `should increase the quality by 3`(sellIn: Int) {
                 assertEquals(
-                    Quality.Standard.of(3)!!,
+                    StandardQuality.of(3)!!,
                     TimedImprovement.age(
                         ageable(
-                            Quality.ZERO,
+                            StandardQuality.ZERO,
                             sellIn
                         )
                     )
@@ -176,10 +177,10 @@ class AgingTest {
             @ValueSource(ints = [-1, -2, -5, -10, -50, -100])
             fun `should drop the quality to zero`(sellIn: Int) {
                 assertEquals(
-                    Quality.ZERO,
+                    StandardQuality.ZERO,
                     TimedImprovement.age(
                         ageable(
-                            Quality.Standard.of(10)!!,
+                            StandardQuality.of(10)!!,
                             sellIn
                         )
                     )
