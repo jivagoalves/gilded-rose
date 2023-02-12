@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test
 class StandardTest {
     @Test
     fun `ZERO - should be 0`() {
-        assertEquals(Standard(0), Standard.ZERO)
+        assertEquals(Standard.of(0), Standard.ZERO)
     }
 
     @Test
     fun `FIFTY - should be 50`() {
-        assertEquals(Standard(50), Standard.FIFTY)
+        assertEquals(Standard.of(50), Standard.FIFTY)
     }
 
     @Test
@@ -33,8 +33,8 @@ class StandardTest {
 
     @Test
     fun `should be capable of being increased or decreased`() {
-        assertEquals(Standard(0), Standard(1) - 1)
-        assertEquals(Standard(2), Standard(1) + 1)
+        assertEquals(Standard.of(0), Standard.of(1)!! - 1)
+        assertEquals(Standard.of(2), Standard.of(1)!! + 1)
     }
 
     @Test
@@ -49,6 +49,11 @@ class StandardTest {
 
 class LegendaryTest {
     private val legendary = Legendary.of(80)
+
+    @Test
+    fun `ZERO - should be 0`() {
+        assertEquals(Legendary.of(0), Legendary.ZERO)
+    }
 
     @Test
     fun `should be represented with q`() {

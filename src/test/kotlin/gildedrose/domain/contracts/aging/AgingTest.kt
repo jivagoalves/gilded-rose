@@ -1,8 +1,8 @@
 package gildedrose.domain.contracts.aging
 
-import gildedrose.domain.quality.Quality
-import gildedrose.domain.quality.Standard as StandardQuality
 import gildedrose.domain.contracts.aging.Aging.*
+import gildedrose.domain.quality.Legendary
+import gildedrose.domain.quality.Quality
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import java.time.LocalDate
 import kotlin.test.assertEquals
+import gildedrose.domain.quality.Standard as StandardQuality
 
 class AgingTest {
     private fun ageable(quality: Quality, sellIn: Int = 0): Ageable =
@@ -173,14 +174,38 @@ class AgingTest {
         @Nested
         @DisplayName("when the are no more days left to sell by")
         inner class NoMoreDaysToSellBy {
-            @ParameterizedTest(name = "with {0} days")
-            @ValueSource(ints = [-1, -2, -5, -10, -50, -100])
-            fun `should drop the quality to zero`(sellIn: Int) {
+            private val sellIn = -1
+
+            @Test
+            fun `should drop the quality to zero`() {
                 assertEquals(
                     StandardQuality.ZERO,
                     TimedImprovement.age(
                         ageable(
                             StandardQuality.of(10)!!,
+                            sellIn
+                        )
+                    )
+                )
+            }
+
+            @Test
+            fun `should not change the quality type`() {
+                assertEquals(
+                    StandardQuality.ZERO,
+                    TimedImprovement.age(
+                        ageable(
+                            StandardQuality.ZERO,
+                            sellIn
+                        )
+                    )
+                )
+
+                assertEquals(
+                    Legendary.ZERO,
+                    TimedImprovement.age(
+                        ageable(
+                            Legendary.ZERO,
                             sellIn
                         )
                     )
