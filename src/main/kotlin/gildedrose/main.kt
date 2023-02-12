@@ -11,6 +11,7 @@ import gildedrose.domain.contracts.lifecycle.LegendaryLife
 import gildedrose.domain.contracts.lifecycle.ShelfLife
 import gildedrose.domain.items.ExpiredItem
 import gildedrose.domain.items.ValidItem
+import gildedrose.domain.items.conjuredItem
 import gildedrose.domain.quality.Legendary
 import gildedrose.domain.quality.Standard
 import java.time.LocalDate
@@ -27,6 +28,7 @@ fun main() {
     val stock = Stock.of(
         listOf(
             ValidItem(N("Orange")!!, JustValid(validShelfLife), Standard.of(9)!!),
+            conjuredItem(N("Conjured Orange")!!, JustValid(validShelfLife), Standard.of(9)!!),
             ValidItem(N("Lemon")!!, JustValid(validShelfLife), Standard.of(9)!!, Aging.Expired),
             ValidItem(N("Sulfuras")!!, JustValid(validLegendaryLife), Legendary.of(80), Aging.None),
             ValidItem(N("Aged Brie")!!, JustValid(validShelfLife), Standard.of(42)!!, Aging.Improvement),

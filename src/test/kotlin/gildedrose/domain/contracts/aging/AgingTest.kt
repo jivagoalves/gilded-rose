@@ -21,7 +21,8 @@ class AgingTest {
                 get() = LocalDate.now().plusDays(sellIn.toLong())
             override val quality: Quality
                 get() = quality
-
+            override fun withQuality(quality: Quality): Ageable =
+                this
         }
 
     @Nested
