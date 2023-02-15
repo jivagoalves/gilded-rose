@@ -2,7 +2,8 @@ package gildedrose.domain
 
 import gildedrose.domain.items.Item
 
-data class Stock(val items: List<Item>): List<Item> by items {
+@JvmInline
+value class Stock private constructor(private val items: List<Item>): List<Item> by items {
     fun age(): Stock =
         Stock(items.map(Item::age))
 

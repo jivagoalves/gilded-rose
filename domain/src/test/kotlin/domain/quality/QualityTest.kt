@@ -1,5 +1,7 @@
-package gildedrose.domain.quality
+package domain.quality
 
+import gildedrose.domain.quality.Legendary
+import gildedrose.domain.quality.Standard
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 

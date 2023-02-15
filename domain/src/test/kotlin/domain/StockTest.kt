@@ -1,5 +1,7 @@
-package gildedrose.domain
+package domain
 
+import gildedrose.domain.N
+import gildedrose.domain.Stock
 import gildedrose.domain.contracts.OneOf.JustValid
 import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.lifecycle.Lifecycle

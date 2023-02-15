@@ -1,12 +1,13 @@
-package gildedrose.domain.items
+package domain.items
 
 import gildedrose.day
 import gildedrose.domain.N
-import gildedrose.domain.quality.Quality
-import gildedrose.domain.quality.Standard
 import gildedrose.domain.contracts.Expired
 import gildedrose.domain.contracts.OneOf.JustExpired
 import gildedrose.domain.contracts.lifecycle.ShelfLife
+import gildedrose.domain.items.ExpiredItem
+import gildedrose.domain.quality.Quality
+import gildedrose.domain.quality.Standard
 import gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName

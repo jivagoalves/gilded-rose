@@ -1,5 +1,6 @@
-package gildedrose.domain
+package domain
 
+import gildedrose.domain.N
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

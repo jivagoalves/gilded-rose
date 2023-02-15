@@ -1,5 +1,6 @@
-package gildedrose.domain.contracts.lifecycle
+package domain.contracts.lifecycle
 
+import gildedrose.domain.contracts.lifecycle.LegendaryLife
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals

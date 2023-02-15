@@ -1,5 +1,6 @@
-package gildedrose.domain.contracts.aging
+package domain.contracts.aging
 
+import gildedrose.domain.contracts.aging.Ageable
 import gildedrose.domain.contracts.aging.Aging.*
 import gildedrose.domain.quality.Legendary
 import gildedrose.domain.quality.Quality

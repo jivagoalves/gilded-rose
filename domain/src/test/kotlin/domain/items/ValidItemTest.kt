@@ -1,4 +1,4 @@
-package gildedrose.domain.items
+package domain.items
 
 import gildedrose.day
 import gildedrose.domain.N
@@ -7,6 +7,7 @@ import gildedrose.domain.contracts.Valid
 import gildedrose.domain.contracts.aging.Ageable
 import gildedrose.domain.contracts.aging.Aging
 import gildedrose.domain.contracts.lifecycle.ShelfLife
+import gildedrose.domain.items.ValidItem
 import gildedrose.domain.quality.Quality
 import gildedrose.domain.quality.Standard
 import gildedrose.plus
