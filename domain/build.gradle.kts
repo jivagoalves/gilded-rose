@@ -4,8 +4,9 @@ plugins {
     kotlin("jvm") version "1.8.10"
 }
 
-group = "org.example"
+group = "com.gilded-rose"
 version = "1.0-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -19,10 +20,13 @@ dependencies {
     implementation(kotlin("script-runtime"))
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "17"
+    }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
