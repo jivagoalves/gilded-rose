@@ -1,13 +1,14 @@
 package gildedrose.domain.quality
 
 interface Quality {
+    val value: Int
     operator fun minus(n: Int): Quality
     operator fun plus(n: Int): Quality
     fun toZero(): Quality
 }
 
 @JvmInline
-value class Standard private constructor(val value: Int) : Quality {
+value class Standard private constructor(override val value: Int) : Quality {
     init {
         require(value in 0..50) { "Must be in between 0 or 50" }
     }
@@ -33,7 +34,7 @@ value class Standard private constructor(val value: Int) : Quality {
 }
 
 @JvmInline
-value class Legendary private constructor(val value: Int) : Quality {
+value class Legendary private constructor(override val value: Int) : Quality {
     companion object {
         val ZERO: Legendary = Legendary(0)
 

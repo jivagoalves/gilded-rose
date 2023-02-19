@@ -1,4 +1,4 @@
 
 rootProject.name = "gilded-rose"
-include("domain")
+include("application")
 include("web")

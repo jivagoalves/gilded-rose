@@ -31,6 +31,9 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.testcontainers:junit-jupiter")
+
+	implementation(project(mapOf("path" to ":application")))
+	testImplementation(project(mapOf("path" to ":application")))
 }
 
 dependencyManagement {
