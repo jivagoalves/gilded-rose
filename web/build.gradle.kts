@@ -18,8 +18,6 @@ repositories {
 extra["testcontainersVersion"] = "1.17.6"
 
 dependencies {
-	runtimeOnly("com.h2database:h2")
-
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-jooq")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
@@ -31,9 +29,13 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+	testImplementation("org.mockito:mockito-inline:4.1.0")
+	runtimeOnly("com.h2database:h2")
 
 	implementation(project(mapOf("path" to ":application")))
 	testImplementation(project(mapOf("path" to ":application")))
+
 }
 
 dependencyManagement {
