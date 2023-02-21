@@ -1,4 +1,4 @@
-package com.domain.contracts.aging
+package com.gildedrose.domain.contracts.aging
 
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.aging.Aging.*

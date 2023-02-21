@@ -1,4 +1,4 @@
-package com.domain.contracts.lifecycle
+package com.gildedrose.domain.contracts.lifecycle
 
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
 import org.junit.jupiter.params.ParameterizedTest

@@ -1,4 +1,4 @@
-package com.domain
+package com.gildedrose.domain
 
 import com.gildedrose.domain.N
 import com.gildedrose.domain.Stock

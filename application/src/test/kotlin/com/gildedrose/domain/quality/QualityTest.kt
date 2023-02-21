@@ -1,11 +1,14 @@
-package com.domain.quality
+package com.gildedrose.domain.quality
 
-import com.gildedrose.domain.quality.Legendary
-import com.gildedrose.domain.quality.Standard
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class StandardTest {
+    @Test
+    fun `should be a VO`() {
+        assertEquals(Standard.ZERO, Standard.ZERO)
+    }
+
     @Test
     fun `ZERO - should be 0`() {
         assertEquals(Standard.of(0), Standard.ZERO)

@@ -1,4 +1,4 @@
-package com.domain.items
+package com.gildedrose.domain.items
 
 import com.gildedrose.day
 import com.gildedrose.domain.N
