@@ -26,7 +26,7 @@ class ItemsController(
 ) {
     @GetMapping
     fun getItems(): List<ItemResponseDTO> =
-        getStock.asOf(LocalDate.now()).map(ItemResponseDTO::from)
+        getStock.asOf(LocalDate.now()).map(ItemResponseDTO::fromItem)
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createItem(@RequestBody itemDTO: ItemRequestDTO): ResponseEntity<Nothing> {
@@ -54,7 +54,7 @@ class ItemRequestDTO(
     }
 
     companion object {
-        fun from(item: Item): ItemResponseDTO =
+        fun fromItem(item: Item): ItemResponseDTO =
             ItemResponseDTO(
                 item.name.toString(),
                 item.quality.value,
@@ -70,7 +70,7 @@ class ItemResponseDTO(
     val sellIn: Int,
 ) {
     companion object {
-        fun from(item: Item): ItemResponseDTO =
+        fun fromItem(item: Item): ItemResponseDTO =
             ItemResponseDTO(
                 item.name.toString(),
                 item.quality.value,

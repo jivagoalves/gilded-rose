@@ -10,5 +10,5 @@ interface IGetStock {
 
 class GetStock(private val stockRepository: IStockRepository) : IGetStock {
     override fun asOf(date: LocalDate): Stock =
-        Stock.of(stockRepository.findAll())
+        Stock.of(stockRepository.findAll().map { it.asOf(date) })
 }

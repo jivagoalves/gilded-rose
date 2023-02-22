@@ -7,7 +7,6 @@ import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.aging.Aging
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
-import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.domain.quality.Quality
 import com.gildedrose.domain.quality.Standard
 import com.gildedrose.plus
@@ -65,6 +64,28 @@ class ValidItemTest {
                 Standard.of(qualityValue),
                 pen.age().quality
             )
+        }
+    }
+
+    @Nested
+    @DisplayName("::asOf")
+    inner class AgingUntilAsOfDateTest {
+        private val apple = ValidItem(
+            name = N("Apple")!!,
+            lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
+            quality = Standard.FIFTY
+        )
+        private val dec31st = jan1st.minusDays(1)
+
+        @Test
+        fun `should age until as of date`() {
+            assertEquals(apple, apple.asOf(jan1st))
+            assertEquals(apple.age(), apple.asOf(jan2nd))
+        }
+
+        @Test
+        fun `should not age when as of date is before registration`() {
+            assertEquals(apple, apple.asOf(dec31st))
         }
     }
 }

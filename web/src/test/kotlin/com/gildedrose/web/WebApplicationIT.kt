@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class WebApplicationIT {
@@ -27,6 +29,11 @@ class WebApplicationIT {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build()
     }
 
+    private val today = LocalDate.now()
+    private val yesterday = today.minusDays(1)
+    private val tomorrow = today.plusDays(1)
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
     @Test
     fun `should returns items`() {
         mockMvc
@@ -35,24 +42,34 @@ class WebApplicationIT {
             .andExpect(content().json("[]"))
 
 
-        mockMvc
-            .perform(post(ITEMS_PATH)
+        val body =
+            """
+            {
+                "name":"Orange",
+                "quality":10,
+                "registeredOn":"${formatter.format(yesterday)}",
+                "sellBy":"${formatter.format(tomorrow)}"
+            }
+            """.trimIndent()
+        mockMvc.perform(
+            post(ITEMS_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                {"name":"Orange","quality":10,"registeredOn":"2023-01-01","sellBy":"2023-01-05"}
-            """.trimIndent()))
+                .content(body)
+        )
 
+        val expectedBody =
+            """
+            [
+                {
+                    "name": "Orange",
+                    "quality": 9,
+                    "sellIn": 2
+                }
+            ]
+            """.trimIndent()
         mockMvc
             .perform(get(ITEMS_PATH))
             .andExpect(status().isOk)
-            .andExpect(content().json("""
-                [
-                  {
-                    "name": "Orange",
-                    "quality": 10,
-                    "sellIn": 4
-                  }
-                ]
-                """.trimIndent()))
+            .andExpect(content().json(expectedBody))
     }
 }

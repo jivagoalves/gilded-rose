@@ -5,6 +5,7 @@ import com.gildedrose.domain.contracts.OneOf
 import com.gildedrose.domain.contracts.Qualifiable
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
+import java.time.LocalDate
 
 sealed class Item(
     private val lifecycle: OneOf<Lifecycle>
@@ -16,5 +17,9 @@ sealed class Item(
     abstract fun age(): Item
 
     override fun toString(): String =
-        "$name, ${sellIn}, $quality"
+        "$name, $sellIn, $quality"
+
+    fun asOf(date: LocalDate): Item =
+        (1..registeredOn.until(date).days)
+            .fold(this) { item, _ -> item.age() }
 }

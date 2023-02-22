@@ -22,11 +22,13 @@ class GetStockTest {
         Standard.of(9)!!
     )
     private val getStock = GetStock(fakeStockRepo)
+    private val now = LocalDate.now()
+    private val tomorrow = now.plusDays(1)
 
     @Test
-    fun `should retrieve all items from the repository`() {
-        assertEquals(Stock.EMPTY, getStock.asOf(LocalDate.now()))
+    fun `should retrieve all items from the repository aged as of date`() {
+        assertEquals(Stock.EMPTY, getStock.asOf(now))
         entries.add(validItem)
-        assertEquals(Stock.of(listOf(validItem)), getStock.asOf(LocalDate.now()))
+        assertEquals(Stock.of(listOf(validItem.asOf(tomorrow))), getStock.asOf(tomorrow))
     }
 }

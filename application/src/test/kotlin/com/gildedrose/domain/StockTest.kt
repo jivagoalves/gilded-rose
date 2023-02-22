@@ -1,7 +1,5 @@
 package com.gildedrose.domain
 
-import com.gildedrose.domain.N
-import com.gildedrose.domain.Stock
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
@@ -11,6 +9,7 @@ import com.gildedrose.domain.quality.Standard
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 import kotlin.test.assertEquals
 
 class StockTest {
@@ -50,5 +49,17 @@ class StockTest {
                 stock.age()
             )
         }
+    }
+
+    private val jan1st: LocalDate = LocalDate.parse("2023-01-01")
+    private val jan5th: LocalDate = LocalDate.parse("2023-01-05")
+    private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife(jan1st, jan5th))!!)
+    private val item = ValidItem(N("Apple")!!, lifecycle, Standard.FIFTY)
+    private val stock = Stock.of(listOf(item))
+
+    @Test
+    fun `should age according to the current date`() {
+        assertEquals(stock, stock.asOf(jan1st))
+        assertEquals(stock.age(), stock.asOf(jan1st.plusDays(1)))
     }
 }
