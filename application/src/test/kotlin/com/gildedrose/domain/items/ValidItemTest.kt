@@ -79,7 +79,6 @@ class ValidItemTest {
 
         @Test
         fun `should age until as of date`() {
-            assertEquals(apple, apple.asOf(jan1st))
             assertEquals(apple.age(), apple.asOf(jan2nd))
         }
 

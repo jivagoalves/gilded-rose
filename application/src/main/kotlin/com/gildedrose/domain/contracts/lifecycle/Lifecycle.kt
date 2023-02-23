@@ -28,7 +28,7 @@ interface Lifecycle: Validatable, Expirable {
 
     private val period: Period
         get() = if (!isExpired)
-            Period.between(registeredOn, sellBy)
+            Period.between(registeredOn, sellBy.plusDays(1))
         else
-            Period.between(sellBy, registeredOn)
+            Period.between(sellBy.plusDays(1), registeredOn)
 }

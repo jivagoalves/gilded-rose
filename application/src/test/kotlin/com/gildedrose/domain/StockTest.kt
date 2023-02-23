@@ -51,15 +51,19 @@ class StockTest {
         }
     }
 
-    private val jan1st: LocalDate = LocalDate.parse("2023-01-01")
-    private val jan5th: LocalDate = LocalDate.parse("2023-01-05")
-    private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife(jan1st, jan5th))!!)
-    private val item = ValidItem(N("Apple")!!, lifecycle, Standard.FIFTY)
-    private val stock = Stock.of(listOf(item))
+    @Nested
+    @DisplayName("::asOf")
+    inner class AgingTheStockAsOfDateTest {
+        private val jan1st: LocalDate = LocalDate.parse("2023-01-01")
+        private val jan5th: LocalDate = LocalDate.parse("2023-01-05")
+        private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife(jan1st, jan5th))!!)
+        private val item = ValidItem(N("Apple")!!, lifecycle, Standard.FIFTY)
+        private val stock = Stock.of(listOf(item))
 
-    @Test
-    fun `should age according to the current date`() {
-        assertEquals(stock, stock.asOf(jan1st))
-        assertEquals(stock.age(), stock.asOf(jan1st.plusDays(1)))
+        @Test
+        fun `should age the stock as of given date`() {
+            assertEquals(stock, stock.asOf(jan1st))
+            assertEquals(stock.age(), stock.asOf(jan1st.plusDays(1)))
+        }
     }
 }

@@ -53,7 +53,7 @@ class ItemsControllerTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$[0].name", `is`("Orange")))
             .andExpect(jsonPath("\$[0].quality", `is`(9)))
-            .andExpect(jsonPath("\$[0].sellIn", `is`(4)))
+            .andExpect(jsonPath("\$[0].sellIn", `is`(5)))
     }
 
     @MockBean
