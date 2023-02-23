@@ -24,7 +24,6 @@ interface Aging {
     object Improvement : Aging {
         override fun age(ageable: Ageable): Quality =
             ageable.quality + 1
-
     }
 
     object TimedImprovement : Aging {
@@ -35,7 +34,5 @@ interface Aging {
                 ageable.sellIn <= 10.days -> ageable.quality + 2
                 else -> ageable.quality + 1
             }
-
-
     }
 }

@@ -63,7 +63,7 @@ class WebApplicationIT {
                 {
                     "name": "Orange",
                     "quality": 9,
-                    "sellIn": 3
+                    "sellIn": 2
                 }
             ]
             """.trimIndent()

@@ -1,9 +1,9 @@
 package com.gildedrose.domain.contracts.lifecycle
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDate
-import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.days
 
 class LifecycleTest {

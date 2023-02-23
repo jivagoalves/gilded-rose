@@ -39,10 +39,10 @@ class ItemsController(
 
 @Suppress("unused")
 class ItemRequestDTO(
-    val name: String,
-    val quality: Int,
-    val registeredOn: String,
-    val sellBy: String,
+    private val name: String,
+    private val quality: Int,
+    private val registeredOn: String,
+    private val sellBy: String,
 ) {
     fun toValidItem(): ValidItem {
         val name = N(name)!!

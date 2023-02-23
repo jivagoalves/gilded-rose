@@ -18,10 +18,13 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import java.time.LocalDate
 import kotlin.test.assertNotNull
+import kotlin.time.Duration.Companion.days
 
 class ValidItemTest {
-    private val jan1st = LocalDate.parse("2023-01-01")
+    private val dec31st = LocalDate.parse("2022-12-31")
+    private val jan1st = dec31st + 1.day
     private val jan2nd = jan1st + 1.day
+    private val jan3rd = jan1st + 2.days
 
     @Nested
     @DisplayName("when not expired")
@@ -68,23 +71,40 @@ class ValidItemTest {
     }
 
     @Nested
-    @DisplayName("::asOf")
+    @DisplayName("::asOf - quality behaviour")
     inner class AgingUntilAsOfDateTest {
         private val apple = ValidItem(
             name = N("Apple")!!,
             lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
             quality = Standard.FIFTY
         )
-        private val dec31st = jan1st.minusDays(1)
 
         @Test
         fun `should age until as of date`() {
-            assertEquals(apple.age(), apple.asOf(jan2nd))
+            assertEquals(apple.age().quality, apple.asOf(jan2nd).quality)
         }
 
         @Test
         fun `should not age when as of date is before registration`() {
-            assertEquals(apple, apple.asOf(dec31st))
+            assertEquals(apple.quality, apple.asOf(dec31st).quality)
         }
     }
+
+    @Nested
+    @DisplayName("::asOf - sellIn behaviour")
+    inner class SellInAsOfTest {
+        private val apple = ValidItem(
+            name = N("Apple")!!,
+            lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
+            quality = Standard.FIFTY
+        )
+
+        @Test
+        fun `should remember sell in as of date`() {
+            assertEquals(2.days, apple.asOf(jan1st).sellIn)
+            assertEquals(1.days, apple.asOf(jan2nd).sellIn)
+            assertEquals(0.days, apple.asOf(jan3rd).sellIn)
+        }
+    }
+
 }
