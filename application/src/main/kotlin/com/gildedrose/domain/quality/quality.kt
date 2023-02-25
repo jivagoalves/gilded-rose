@@ -40,7 +40,7 @@ value class Standard private constructor(override val value: Int) : Quality {
     }
 
     object InvalidQuality : ValidationError {
-        override val description = "Must be in between 0 or 50"
+        override val description = "Quality must be between 0 or 50"
 
         override fun toString(): String = "InvalidQuality"
     }
