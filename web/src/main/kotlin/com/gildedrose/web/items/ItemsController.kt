@@ -13,7 +13,7 @@ import java.net.URI
 import java.time.LocalDate
 import kotlin.time.DurationUnit
 
-const val ITEMS_PATH = "/items"
+const val ITEMS_PATH = "/api/items"
 const val EMPTY = ""
 
 private fun <E> List<E>.toJSON(): String =
