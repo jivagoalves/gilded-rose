@@ -5,7 +5,7 @@ sealed class OneOf<T>(val value: T) {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
-            return true
+            return value == (other as JustValid<*>).value
         }
 
         override fun hashCode(): Int {
@@ -16,7 +16,7 @@ sealed class OneOf<T>(val value: T) {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
-            return true
+            return value == (other as JustExpired<*>).value
         }
 
         override fun hashCode(): Int {
