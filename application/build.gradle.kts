@@ -12,7 +12,10 @@ repositories {
     mavenCentral()
 }
 
+val arrowVersion = "1.1.5"
+
 dependencies {
+    implementation("io.arrow-kt:arrow-core:$arrowVersion")
     implementation("org.junit.jupiter:junit-jupiter:5.9.2")
 
     // testing

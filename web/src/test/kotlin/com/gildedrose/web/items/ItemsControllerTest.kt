@@ -1,5 +1,6 @@
 package com.gildedrose.web.items
 
+import arrow.core.*
 import com.gildedrose.domain.N
 import com.gildedrose.domain.Stock
 import com.gildedrose.domain.contracts.OneOf.JustValid
@@ -7,6 +8,7 @@ import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.items.Item
 import com.gildedrose.domain.items.ValidItem
+import com.gildedrose.domain.items.ValidationError.*
 import com.gildedrose.domain.quality.Standard
 import com.gildedrose.usecases.IAddItemToStock
 import com.gildedrose.usecases.IGetStock
@@ -14,7 +16,6 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.kotlin.any
-import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -37,10 +38,14 @@ class ItemsControllerTest {
     @MockBean
     private lateinit var getStock: IGetStock
 
+    @MockBean
+    private lateinit var addItemToStock: IAddItemToStock
+
+    private val jan1st = LocalDate.parse("2023-01-01")
+    private val jan5th = LocalDate.parse("2023-01-05")
+
     @Test
     fun `GET - should list all items`() {
-        val jan1st = LocalDate.parse("2023-01-01")
-        val jan5th = LocalDate.parse("2023-01-05")
         val items: List<Item> = listOf(
             ValidItem(N("Orange")!!, JustValid(Valid(ShelfLife(jan1st, jan5th))!!), Standard.of(9)!!),
         )
@@ -56,27 +61,58 @@ class ItemsControllerTest {
             .andExpect(jsonPath("\$[0].sellIn", `is`(5)))
     }
 
-    @MockBean
-    private lateinit var addItemToStock: IAddItemToStock
-
     @Test
     fun `POST - should create a new item`() {
-        val itemDTO = ItemRequestDTO(
-            "Orange",
-            10,
-            "2023-01-01",
-            "2023-01-05",
+        val itemDTO = ItemDTORequest(
+            name = "Orange",
+            quality = 10,
+            registeredOn = "2023-01-01",
+            sellBy = "2023-01-05",
         )
+        val expectedItem = ValidItem(
+            name = N("Orange")!!,
+            lifecycle = JustValid(Valid(ShelfLife(jan1st, jan5th))!!),
+            quality = Standard.of(10)!!
+        )
+
+        whenever(addItemToStock.addItem(itemDTO)).thenReturn(expectedItem.valid())
 
         mockMvc.perform(
             post(ITEMS_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(itemDTO)))
             .andExpect(status().isCreated)
-
-        verify(addItemToStock).addItem(itemDTO.toValidItem())
+            .andExpect(header().string("location", ITEMS_PATH))
     }
 
-    private fun json(itemDTO: ItemRequestDTO): String =
+    @Test
+    fun `POST - should return validation errors`() {
+        val itemDTO = ItemDTORequest(
+            name = "",
+            quality = -1,
+            registeredOn = "2023-01-05",
+            sellBy = "2023-01-01",
+        )
+
+        whenever(addItemToStock.addItem(itemDTO)).thenReturn(
+            listOf(
+                BlankName,
+                NegativeQuality,
+                InvalidLifecycle,
+            ).invalid()
+        )
+
+        mockMvc.perform(
+            post(ITEMS_PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json(itemDTO)))
+            .andExpect(status().isUnprocessableEntity)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("\$[0]", `is`(BlankName.message)))
+            .andExpect(jsonPath("\$[1]", `is`(NegativeQuality.message)))
+            .andExpect(jsonPath("\$[2]", `is`(InvalidLifecycle.message)))
+    }
+
+    private fun json(itemDTO: ItemDTORequest): String =
         ObjectMapper().writeValueAsString(itemDTO)
 }

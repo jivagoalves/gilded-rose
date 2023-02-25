@@ -17,6 +17,9 @@ repositories {
 
 extra["testcontainersVersion"] = "1.17.6"
 
+val mockitoVersion = "4.1.0"
+val arrowVersion = "1.1.5"
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-jooq")
@@ -29,10 +32,11 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.testcontainers:junit-jupiter")
-	testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-	testImplementation("org.mockito:mockito-inline:4.1.0")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoVersion")
+	testImplementation("org.mockito:mockito-inline:$mockitoVersion")
 	runtimeOnly("com.h2database:h2")
 
+	implementation("io.arrow-kt:arrow-core:$arrowVersion")
 	implementation(project(mapOf("path" to ":application")))
 	testImplementation(project(mapOf("path" to ":application")))
 
