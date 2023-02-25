@@ -14,7 +14,10 @@ class ValidShelfLifeTest {
     private val yesterday = "2023-01-01"
     private val invalidShelfLifeDTO = ItemDTO.ShelfLifeDTO(today, yesterday)
     private val validShelfLifeDTO = ItemDTO.ShelfLifeDTO(yesterday, today)
-    private val validShelfLife = Valid(ShelfLife(yesterday.toLocalDate(), today.toLocalDate()))!!
+    private val validShelfLife = Valid(ShelfLife(
+        yesterday.toLocalDate(),
+        today.toLocalDate()
+    ))!!
 
     @Test
     fun `should validate shelf life`() {
