@@ -38,7 +38,7 @@ class ItemsController(
             { validationErrors ->
                 ResponseEntity
                     .unprocessableEntity()
-                    .body(validationErrors.map(ValidationError::message).toJSON())
+                    .body(validationErrors.map(ValidationError::description).toJSON())
             },
             { _ ->
                 ResponseEntity

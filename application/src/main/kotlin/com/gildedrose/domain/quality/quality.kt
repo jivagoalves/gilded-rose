@@ -1,5 +1,8 @@
 package com.gildedrose.domain.quality
 
+import arrow.core.*
+import com.gildedrose.domain.items.ValidationError
+
 interface Quality {
     val value: Int
     operator fun minus(n: Int): Quality
@@ -10,7 +13,7 @@ interface Quality {
 @JvmInline
 value class Standard private constructor(override val value: Int) : Quality {
     init {
-        require(value in 0..50) { "Must be in between 0 or 50" }
+        require(value in 0..50) { InvalidQuality.description }
     }
 
     override fun toString(): String = "${value}q"
@@ -25,11 +28,21 @@ value class Standard private constructor(override val value: Int) : Quality {
         val ZERO: Standard = Standard(0)
         val FIFTY: Standard = Standard(50)
 
-        fun of(value: Int): Standard? = try {
-            Standard(value)
-        } catch (_: IllegalArgumentException) {
-            null
-        }
+        fun of(value: Int): Standard? =
+            validatedFrom(value).orNull()
+
+        fun validatedFrom(value: Int): Validated<Nel<ValidationError>, Standard> =
+            try {
+                Standard(value).valid()
+            } catch (_: IllegalArgumentException) {
+                InvalidQuality.invalidNel()
+            }
+    }
+
+    object InvalidQuality : ValidationError {
+        override val description = "Must be in between 0 or 50"
+
+        override fun toString(): String = "InvalidQuality"
     }
 }
 

@@ -2,10 +2,12 @@ package com.gildedrose.web.items
 
 import arrow.core.*
 import com.gildedrose.domain.N
+import com.gildedrose.domain.Name
 import com.gildedrose.domain.Stock
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
+import com.gildedrose.domain.contracts.lifecycle.ValidShelfLife
 import com.gildedrose.domain.items.Item
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.domain.items.ValidationError.*
@@ -96,9 +98,9 @@ class ItemsControllerTest {
 
         whenever(addItemToStock.addItem(itemDTO)).thenReturn(
             listOf(
-                BlankName,
-                NegativeQuality,
-                InvalidLifecycle,
+                Name.BlankName,
+                Standard.InvalidQuality,
+                ValidShelfLife.InvalidLifecycle,
             ).invalid()
         )
 
@@ -108,9 +110,9 @@ class ItemsControllerTest {
                 .content(json(itemDTO)))
             .andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("\$[0]", `is`(BlankName.message)))
-            .andExpect(jsonPath("\$[1]", `is`(NegativeQuality.message)))
-            .andExpect(jsonPath("\$[2]", `is`(InvalidLifecycle.message)))
+            .andExpect(jsonPath("\$[0]", `is`(Name.BlankName.description)))
+            .andExpect(jsonPath("\$[1]", `is`(Standard.InvalidQuality.description)))
+            .andExpect(jsonPath("\$[2]", `is`(ValidShelfLife.InvalidLifecycle.description)))
     }
 
     private fun json(itemDTO: ItemDTORequest): String =

@@ -13,6 +13,12 @@ interface ItemDTO {
     val quality: Int
     val registeredOn: String
     val sellBy: String
+
+    val shelfLife: ShelfLifeDTO
+        get() =
+            ShelfLifeDTO(registeredOn, sellBy)
+
+    data class ShelfLifeDTO(val registeredOn: String, val sellBy: String)
 }
 
 interface IAddItemToStock {
