@@ -35,7 +35,7 @@ class WebApplicationIT {
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
     @Test
-    fun `should returns items`() {
+    fun `should return all items`() {
         mockMvc
             .perform(get(ITEMS_PATH))
             .andExpect(status().isOk)

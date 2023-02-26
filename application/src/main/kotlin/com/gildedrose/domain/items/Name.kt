@@ -6,7 +6,7 @@ import arrow.core.*
 fun N(s: String): Name? = Name.of(s)
 
 @JvmInline
-value class Name private constructor(private val value: String) {
+value class Name private constructor(val value: String) {
     init {
         require(value.isNotBlank()) { BlankName.description }
     }
