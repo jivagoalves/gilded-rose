@@ -102,6 +102,20 @@ class ValidItemTest {
             assertEquals(1.days, apple.asOf(jan2nd).sellIn)
             assertEquals(0.days, apple.asOf(jan3rd).sellIn)
         }
+
+        private val registeredOn = LocalDate.parse("2023-02-20")
+        private val sellBy = LocalDate.parse("2023-03-30")
+        private val asOfDate = LocalDate.parse("2023-02-26")
+        private val orange = ValidItem(
+            name = N("Orange")!!,
+            lifecycle = JustValid(Valid(ShelfLife(registeredOn, sellBy))!!),
+            quality = StandardQuality.of(33)!!
+        )
+
+        @Test
+        fun `should remember sell in as of date across months`() {
+            assertEquals(33.days, orange.asOf(asOfDate).sellIn)
+        }
     }
 
 }
