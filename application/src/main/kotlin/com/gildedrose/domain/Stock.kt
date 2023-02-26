@@ -4,7 +4,7 @@ import com.gildedrose.domain.items.Item
 import java.time.LocalDate
 
 @JvmInline
-value class Stock private constructor(private val items: List<Item>): List<Item> by items {
+value class Stock private constructor(private val items: List<Item>) : List<Item> by items {
     fun age(): Stock =
         Stock(items.map(Item::age))
 

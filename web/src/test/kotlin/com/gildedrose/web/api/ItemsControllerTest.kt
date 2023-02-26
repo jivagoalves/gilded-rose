@@ -1,17 +1,13 @@
 package com.gildedrose.web.api
 
 import arrow.core.*
-import com.gildedrose.domain.items.N
-import com.gildedrose.domain.items.Name
 import com.gildedrose.domain.Stock
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.contracts.lifecycle.ValidShelfLife
-import com.gildedrose.domain.items.Item
-import com.gildedrose.domain.items.ValidItem
+import com.gildedrose.domain.items.*
 import com.gildedrose.domain.items.ValidationError.*
-import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.usecases.IAddItemToStock
 import com.gildedrose.usecases.IGetStock
 import org.hamcrest.CoreMatchers.`is`
@@ -82,7 +78,8 @@ class ItemsControllerTest {
         mockMvc.perform(
             post(ITEMS_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json(itemDTO)))
+                .content(json(itemDTO))
+        )
             .andExpect(status().isCreated)
             .andExpect(header().string("location", ITEMS_PATH))
     }
@@ -107,7 +104,8 @@ class ItemsControllerTest {
         mockMvc.perform(
             post(ITEMS_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json(itemDTO)))
+                .content(json(itemDTO))
+        )
             .andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$[0]", `is`(Name.BlankName.description)))

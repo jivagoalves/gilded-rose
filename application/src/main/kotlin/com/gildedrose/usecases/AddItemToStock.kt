@@ -28,7 +28,7 @@ interface IAddItemToStock {
 class AddItemToStock(private val stockRepository: IStockRepository) : IAddItemToStock {
 
     override fun addItem(itemDTO: ItemDTO): Validated<List<ValidationError>, ValidItem> =
-        when(val vItem = Validation.validate(itemDTO)) {
+        when (val vItem = Validation.validate(itemDTO)) {
             is Valid -> vItem.also { stockRepository.save(it.value) }
             is Invalid -> vItem
         }

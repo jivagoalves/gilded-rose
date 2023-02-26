@@ -7,7 +7,7 @@ import java.time.Period
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 
-interface Lifecycle: Validatable, Expirable {
+interface Lifecycle : Validatable, Expirable {
     val registeredOn: LocalDate
     val sellBy: LocalDate
 

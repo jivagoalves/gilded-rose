@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class WebApplication
 
 fun main(args: Array<String>) {
-	runApplication<WebApplication>(*args)
+    runApplication<WebApplication>(*args)
 }

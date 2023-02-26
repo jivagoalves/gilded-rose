@@ -21,6 +21,7 @@ class AgingTest {
                 get() = LocalDate.now().plusDays(sellIn.toLong() - 1)
             override val quality: Quality
                 get() = quality
+
             override fun withQuality(quality: Quality): Ageable =
                 this
         }
@@ -76,6 +77,7 @@ class AgingTest {
                 Expired.age(ageable(StandardQuality.of(48)!!))
             )
         }
+
         @Test
         fun `should be able to decrease the quality to zero`() {
             assertEquals(

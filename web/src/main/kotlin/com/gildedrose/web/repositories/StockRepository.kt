@@ -29,7 +29,7 @@ class ItemEntity(
 
 class StockRepositoryAdapter(
     private val stockRepository: StockRepository
-): IStockRepository {
+) : IStockRepository {
 
     override fun findAll(): List<ValidItem> {
         return stockRepository.findAll().map {
@@ -42,12 +42,14 @@ class StockRepositoryAdapter(
     }
 
     override fun save(validItem: ValidItem) {
-        stockRepository.save(ItemEntity(
-            validItem.name.value,
-            validItem.lifecycle.value.registeredOn,
-            validItem.lifecycle.value.sellBy,
-            validItem.quality.value
-        ))
+        stockRepository.save(
+            ItemEntity(
+                validItem.name.value,
+                validItem.lifecycle.value.registeredOn,
+                validItem.lifecycle.value.sellBy,
+                validItem.quality.value
+            )
+        )
     }
 
 }

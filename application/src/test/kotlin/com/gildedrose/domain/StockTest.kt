@@ -5,8 +5,8 @@ import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.items.N
-import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.domain.items.StandardQuality
+import com.gildedrose.domain.items.ValidItem
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -23,6 +23,7 @@ class StockTest {
         fun `should have size zero`() {
             assertEquals(0, stock.size)
         }
+
         @Test
         fun `should be kept empty after aging`() {
             assertEquals(Stock.EMPTY, stock.age())
@@ -44,9 +45,11 @@ class StockTest {
         @Test
         fun `should age its items`() {
             assertEquals(
-                Stock.of(listOf(
-                    item.age()
-                )),
+                Stock.of(
+                    listOf(
+                        item.age()
+                    )
+                ),
                 stock.age()
             )
         }

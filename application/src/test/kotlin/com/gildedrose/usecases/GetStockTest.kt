@@ -1,12 +1,12 @@
 package com.gildedrose.usecases
 
-import com.gildedrose.domain.items.N
 import com.gildedrose.domain.Stock
 import com.gildedrose.domain.contracts.OneOf
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
-import com.gildedrose.domain.items.ValidItem
+import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
+import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.FakeStockRepository
 import org.junit.jupiter.api.Test
 import java.time.LocalDate

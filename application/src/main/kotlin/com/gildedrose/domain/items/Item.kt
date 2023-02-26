@@ -10,9 +10,7 @@ import kotlin.time.Duration.Companion.days
 
 sealed class Item(
     private val lifecycle: OneOf<Lifecycle>
-) : Lifecycle by lifecycle.value
-    , Ageable
-{
+) : Lifecycle by lifecycle.value, Ageable {
     abstract val name: Name
     abstract fun age(): Item
 

@@ -53,7 +53,7 @@ data class ItemDTORequest(
     override val quality: Int,
     override val registeredOn: String,
     override val sellBy: String,
-): ItemDTO
+) : ItemDTO
 
 @Suppress("unused")
 class ItemDTOResponse(
