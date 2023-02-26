@@ -1,4 +1,4 @@
-package com.gildedrose.web.items
+package com.gildedrose.web.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.gildedrose.domain.items.Item

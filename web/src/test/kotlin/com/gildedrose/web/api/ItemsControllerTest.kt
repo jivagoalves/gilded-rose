@@ -1,4 +1,4 @@
-package com.gildedrose.web.items
+package com.gildedrose.web.api
 
 import arrow.core.*
 import com.gildedrose.domain.items.N

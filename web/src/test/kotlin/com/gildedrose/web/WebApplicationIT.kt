@@ -1,6 +1,6 @@
 package com.gildedrose.web
 
-import com.gildedrose.web.items.ITEMS_PATH
+import com.gildedrose.web.api.ITEMS_PATH
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
