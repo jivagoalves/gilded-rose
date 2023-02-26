@@ -1,7 +1,6 @@
-package com.gildedrose.domain
+package com.gildedrose.domain.items
 
 import arrow.core.*
-import com.gildedrose.domain.items.ValidationError
 
 @Suppress("FunctionName")
 fun N(s: String): Name? = Name.of(s)

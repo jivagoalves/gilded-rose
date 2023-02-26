@@ -1,8 +1,8 @@
 package com.gildedrose.web.items
 
 import arrow.core.*
-import com.gildedrose.domain.N
-import com.gildedrose.domain.Name
+import com.gildedrose.domain.items.N
+import com.gildedrose.domain.items.Name
 import com.gildedrose.domain.Stock
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
@@ -11,7 +11,7 @@ import com.gildedrose.domain.contracts.lifecycle.ValidShelfLife
 import com.gildedrose.domain.items.Item
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.domain.items.ValidationError.*
-import com.gildedrose.domain.quality.Standard
+import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.usecases.IAddItemToStock
 import com.gildedrose.usecases.IGetStock
 import org.hamcrest.CoreMatchers.`is`
@@ -49,7 +49,7 @@ class ItemsControllerTest {
     @Test
     fun `GET - should list all items`() {
         val items: List<Item> = listOf(
-            ValidItem(N("Orange")!!, JustValid(Valid(ShelfLife(jan1st, jan5th))!!), Standard.of(9)!!),
+            ValidItem(N("Orange")!!, JustValid(Valid(ShelfLife(jan1st, jan5th))!!), StandardQuality.of(9)!!),
         )
 
         whenever(getStock.asOf(any())).thenReturn(Stock.of(items))
@@ -74,7 +74,7 @@ class ItemsControllerTest {
         val expectedItem = ValidItem(
             name = N("Orange")!!,
             lifecycle = JustValid(Valid(ShelfLife(jan1st, jan5th))!!),
-            quality = Standard.of(10)!!
+            quality = StandardQuality.of(10)!!
         )
 
         whenever(addItemToStock.addItem(itemDTO)).thenReturn(expectedItem.valid())
@@ -99,7 +99,7 @@ class ItemsControllerTest {
         whenever(addItemToStock.addItem(itemDTO)).thenReturn(
             listOf(
                 Name.BlankName,
-                Standard.InvalidQuality,
+                StandardQuality.InvalidQuality,
                 ValidShelfLife.InvalidLifecycle,
             ).invalid()
         )
@@ -111,7 +111,7 @@ class ItemsControllerTest {
             .andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$[0]", `is`(Name.BlankName.description)))
-            .andExpect(jsonPath("\$[1]", `is`(Standard.InvalidQuality.description)))
+            .andExpect(jsonPath("\$[1]", `is`(StandardQuality.InvalidQuality.description)))
             .andExpect(jsonPath("\$[2]", `is`(ValidShelfLife.InvalidLifecycle.description)))
     }
 

@@ -1,13 +1,9 @@
 package com.gildedrose.domain.items
 
 import com.gildedrose.day
-import com.gildedrose.domain.N
 import com.gildedrose.domain.contracts.Expired
 import com.gildedrose.domain.contracts.OneOf.JustExpired
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
-import com.gildedrose.domain.items.ExpiredItem
-import com.gildedrose.domain.quality.Quality
-import com.gildedrose.domain.quality.Standard
 import com.gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -31,7 +27,7 @@ class ExpiredItemTest {
 
         @Test
         fun `should be valid`() {
-            assertNotNull(expiredItem(quality = Standard.ZERO))
+            assertNotNull(expiredItem(quality = StandardQuality.ZERO))
         }
     }
 
@@ -46,16 +42,16 @@ class ExpiredItemTest {
             val expiredItem = ExpiredItem(
                 name = N("Orange")!!,
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
-                quality = Standard.ZERO
+                quality = StandardQuality.ZERO
             )
 
             assertEquals(
-                Standard.ZERO,
+                StandardQuality.ZERO,
                 expiredItem
                     .age().quality
             )
             assertEquals(
-                Standard.ZERO,
+                StandardQuality.ZERO,
                 expiredItem
                     .age()
                     .age().quality
@@ -67,15 +63,15 @@ class ExpiredItemTest {
             val expiredItem = ExpiredItem(
                 name = N("Orange")!!,
                 lifecycle = JustExpired(Expired(ShelfLife(jan2nd, jan1st))!!),
-                quality = Standard.FIFTY
+                quality = StandardQuality.FIFTY
             )
 
             assertEquals(
-                Standard.of(48)!!,
+                StandardQuality.of(48)!!,
                 expiredItem.age().quality
             )
             assertEquals(
-                Standard.of(46)!!,
+                StandardQuality.of(46)!!,
                 expiredItem
                     .age()
                     .age().quality

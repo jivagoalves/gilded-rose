@@ -1,11 +1,9 @@
 package com.gildedrose.domain.items
 
-import com.gildedrose.domain.Name
 import com.gildedrose.domain.contracts.Expired
 import com.gildedrose.domain.contracts.OneOf.JustExpired
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
-import com.gildedrose.domain.quality.Quality
 import com.gildedrose.domain.contracts.aging.Aging.Expired as ExpiredAging
 
 data class ExpiredItem(

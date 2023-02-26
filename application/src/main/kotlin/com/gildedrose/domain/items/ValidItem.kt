@@ -1,12 +1,10 @@
 package com.gildedrose.domain.items
 
-import com.gildedrose.domain.Name
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.aging.Aging
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
-import com.gildedrose.domain.quality.Quality
 
 data class ValidItem(
     override val name: Name,

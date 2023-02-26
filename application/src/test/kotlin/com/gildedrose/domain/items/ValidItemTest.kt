@@ -1,14 +1,11 @@
 package com.gildedrose.domain.items
 
 import com.gildedrose.day
-import com.gildedrose.domain.N
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.aging.Aging
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
-import com.gildedrose.domain.quality.Quality
-import com.gildedrose.domain.quality.Standard
 import com.gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -32,7 +29,7 @@ class ValidItemTest {
         private val nonExpiredValidItem = ValidItem(
             name = N("Apple")!!,
             lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
-            quality = Standard.FIFTY
+            quality = StandardQuality.FIFTY
         )
 
         @Test
@@ -47,7 +44,7 @@ class ValidItemTest {
         private val validItem = ValidItem(
             name = N("Pen")!!,
             lifecycle = JustValid(Valid(ShelfLife.NOW)!!),
-            quality = Standard.FIFTY,
+            quality = StandardQuality.FIFTY,
         )
 
         @Test
@@ -60,11 +57,11 @@ class ValidItemTest {
         fun `should accept different degradation strategies`(qualityValue: Int) {
             val pen = validItem.copy(aging = object : Aging {
                 override fun age(ageable: Ageable): Quality =
-                    Standard.of(qualityValue)!!
+                    StandardQuality.of(qualityValue)!!
             })
 
             assertEquals(
-                Standard.of(qualityValue),
+                StandardQuality.of(qualityValue),
                 pen.age().quality
             )
         }
@@ -76,7 +73,7 @@ class ValidItemTest {
         private val apple = ValidItem(
             name = N("Apple")!!,
             lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
-            quality = Standard.FIFTY
+            quality = StandardQuality.FIFTY
         )
 
         @Test
@@ -96,7 +93,7 @@ class ValidItemTest {
         private val apple = ValidItem(
             name = N("Apple")!!,
             lifecycle = JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
-            quality = Standard.FIFTY
+            quality = StandardQuality.FIFTY
         )
 
         @Test

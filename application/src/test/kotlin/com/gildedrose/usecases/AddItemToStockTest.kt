@@ -1,11 +1,11 @@
 package com.gildedrose.usecases
 
-import com.gildedrose.domain.N
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
+import com.gildedrose.domain.items.N
+import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.domain.quality.Standard
 import com.gildedrose.repositories.FakeStockRepository
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -18,7 +18,7 @@ class AddItemToStockTest {
     private val validItem = ValidItem(
         N("Orange")!!,
         JustValid(Valid(ShelfLife(jan1st, jan2nd))!!),
-        Standard.of(9)!!
+        StandardQuality.of(9)!!
     )
 
     private val validItemDTO: ItemDTO =

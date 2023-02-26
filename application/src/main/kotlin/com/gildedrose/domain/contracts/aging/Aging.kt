@@ -1,6 +1,6 @@
 package com.gildedrose.domain.contracts.aging
 
-import com.gildedrose.domain.quality.Quality
+import com.gildedrose.domain.items.Quality
 import kotlin.time.Duration.Companion.days
 
 interface Aging {

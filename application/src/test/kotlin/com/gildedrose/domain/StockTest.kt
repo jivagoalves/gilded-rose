@@ -4,8 +4,9 @@ import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
+import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.domain.quality.Standard
+import com.gildedrose.domain.items.StandardQuality
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -32,7 +33,7 @@ class StockTest {
     @DisplayName("when there are items")
     inner class WhenListOfItemsIsNotEmpty {
         private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife.NOW)!!)
-        private val item = ValidItem(N("Apple")!!, lifecycle, Standard.FIFTY)
+        private val item = ValidItem(N("Apple")!!, lifecycle, StandardQuality.FIFTY)
         private val stock = Stock.of(listOf(item))
 
         @Test
@@ -57,7 +58,7 @@ class StockTest {
         private val jan1st: LocalDate = LocalDate.parse("2023-01-01")
         private val jan5th: LocalDate = LocalDate.parse("2023-01-05")
         private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife(jan1st, jan5th))!!)
-        private val item = ValidItem(N("Apple")!!, lifecycle, Standard.FIFTY)
+        private val item = ValidItem(N("Apple")!!, lifecycle, StandardQuality.FIFTY)
         private val stock = Stock.of(listOf(item))
 
         @Test

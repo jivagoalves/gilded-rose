@@ -2,13 +2,10 @@ package com.gildedrose.domain.items
 
 import arrow.core.invalid
 import arrow.core.valid
-import com.gildedrose.domain.N
-import com.gildedrose.domain.Name
 import com.gildedrose.domain.contracts.OneOf
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.contracts.lifecycle.ValidShelfLife
-import com.gildedrose.domain.quality.Standard
 import com.gildedrose.usecases.ItemDTO
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -21,7 +18,7 @@ class ValidationTest {
     private val validItem = ValidItem(
         N("Orange")!!,
         OneOf.JustValid(Valid(ShelfLife(jan1st, jan5th))!!),
-        Standard.of(9)!!
+        StandardQuality.of(9)!!
     )
 
     private fun itemDTO(
@@ -63,7 +60,7 @@ class ValidationTest {
         assertEquals(
             listOf(
                 Name.BlankName,
-                Standard.InvalidQuality,
+                StandardQuality.InvalidQuality,
                 ValidShelfLife.InvalidLifecycle,
             ).invalid(),
             Validation.validate(

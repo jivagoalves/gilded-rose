@@ -1,8 +1,6 @@
 package com.gildedrose.domain.items
 
-import com.gildedrose.domain.Name
 import com.gildedrose.domain.contracts.OneOf
-import com.gildedrose.domain.contracts.Qualifiable
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
 import java.time.LocalDate
@@ -13,7 +11,6 @@ import kotlin.time.Duration.Companion.days
 sealed class Item(
     private val lifecycle: OneOf<Lifecycle>
 ) : Lifecycle by lifecycle.value
-    , Qualifiable
     , Ageable
 {
     abstract val name: Name

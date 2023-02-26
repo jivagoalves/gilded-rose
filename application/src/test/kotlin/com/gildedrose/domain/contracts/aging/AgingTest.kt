@@ -1,8 +1,9 @@
 package com.gildedrose.domain.contracts.aging
 
 import com.gildedrose.domain.contracts.aging.Aging.*
-import com.gildedrose.domain.quality.Legendary
-import com.gildedrose.domain.quality.Quality
+import com.gildedrose.domain.items.LegendaryQuality
+import com.gildedrose.domain.items.Quality
+import com.gildedrose.domain.items.StandardQuality
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -10,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import java.time.LocalDate
 import kotlin.test.assertEquals
-import com.gildedrose.domain.quality.Standard as StandardQuality
 
 class AgingTest {
     private fun ageable(quality: Quality, sellIn: Int = 0): Ageable =
@@ -203,10 +203,10 @@ class AgingTest {
                 )
 
                 assertEquals(
-                    Legendary.ZERO,
+                    LegendaryQuality.ZERO,
                     TimedImprovement.age(
                         ageable(
-                            Legendary.ZERO,
+                            LegendaryQuality.ZERO,
                             sellIn
                         )
                     )
