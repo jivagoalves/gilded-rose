@@ -23,7 +23,7 @@ sealed class Item(
         get() = sellInAsOfDate.sellIn
 
     fun asOf(date: LocalDate): Item =
-        (1..registeredOn.until(date).days)
+        (1..ChronoUnit.DAYS.between(registeredOn, date))
             .fold(this) { item, _ -> item.age() }
             .let { it.also { it.sellInAsOfDate.asOf(date) } }
 }

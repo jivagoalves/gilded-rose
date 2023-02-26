@@ -21,7 +21,8 @@ class LifecycleTest {
             "2023-01-02,2023-01-01,0",
             "2023-01-01,2023-01-01,1",
             "2023-01-01,2023-01-02,2",
-            "2023-01-01,2023-01-03,3"
+            "2023-01-01,2023-01-03,3",
+            "2023-01-01,2023-02-01,32"
         ]
     )
     fun `should sell in days according to the period between registration and expiration`(

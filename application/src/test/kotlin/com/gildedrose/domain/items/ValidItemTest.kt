@@ -76,9 +76,14 @@ class ValidItemTest {
             quality = StandardQuality.FIFTY
         )
 
+        private val feb1st = LocalDate.parse("2023-02-01")
+        private val feb19th = LocalDate.parse("2023-02-19")
+
         @Test
         fun `should age until as of date`() {
             assertEquals(apple.age().quality, apple.asOf(jan2nd).quality)
+            assertEquals(StandardQuality.of(50 - 31), apple.asOf(feb1st).quality)
+            assertEquals(StandardQuality.of(50 - 49), apple.asOf(feb19th).quality)
         }
 
         @Test
