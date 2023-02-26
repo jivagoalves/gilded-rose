@@ -5,22 +5,26 @@ sealed class OneOf<T>(val value: T) {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
-            return value == (other as JustValid<*>).value
+            other as JustValid<*>
+            if (value != other.value) return false
+            return true
         }
 
         override fun hashCode(): Int {
-            return javaClass.hashCode()
+            return value.hashCode()
         }
     }
     class JustExpired<E: Expirable>(value: Expired<E>): OneOf<E>(value.value) {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
-            return value == (other as JustExpired<*>).value
+            other as JustExpired<*>
+            if (value != other.value) return false
+            return true
         }
 
         override fun hashCode(): Int {
-            return javaClass.hashCode()
+            return value.hashCode()
         }
     }
 }
