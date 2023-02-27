@@ -63,7 +63,9 @@ Please bear in mind this in under development and not all features are accessibl
 
 ## Architecture
 
-The project is divided into two modules: `application` and `web`.
+The project is divided into two modules: `application` and `web`:
+
+![Architecture.jpg](https://github.com/jivagoalves/gilded-rose/blob/master/docs/Architecture.jpg?raw=true)
 
 The `application` module contains the business logic responsible for making sure the system behaves as it should. This is done by making illegal states unrepresentable at the type system level. If possible, we always implement invariants at the type level instead of using tests. Code should not compile if it does not make sense according to the business rules. For example, `Quality` class can never be instantiated with a negative value. The application is agnostic to any infrastructure that it depends on (e.g. REST API, DB). Using the hexagonal architecture concepts, there should be always a port or adapter to ensure the boundaries. As such, the application does not depend on the `web` module but on interfaces implemented and injected by external modules.
 
