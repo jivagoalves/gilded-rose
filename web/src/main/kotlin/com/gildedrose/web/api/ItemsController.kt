@@ -14,6 +14,7 @@ import java.time.LocalDate
 import kotlin.time.DurationUnit
 
 const val ITEMS_PATH = "/api/items"
+const val AS_OF_PATH = "/as-of"
 const val EMPTY = ""
 
 private fun <E> List<E>.toJSON(): String =
@@ -27,7 +28,11 @@ class ItemsController(
 ) {
     @GetMapping
     fun getItems(): List<ItemDTOResponse> =
-        getStock.asOf(LocalDate.now()).map(ItemDTOResponse::fromItem)
+        getItemsAsOf(LocalDate.now())
+
+    @GetMapping("$AS_OF_PATH/{date}")
+    fun getItemsAsOf(@PathVariable date: LocalDate): List<ItemDTOResponse> =
+        getStock.asOf(date).map(ItemDTOResponse::fromItem)
 
     @PostMapping(
         consumes = [MediaType.APPLICATION_JSON_VALUE],

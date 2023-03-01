@@ -40,6 +40,8 @@ Run the web app (API) with:
 
 ## Items API
 
+[Swagger UI](http://localhost:8080/swagger-ui/index.html)
+
 You can now:
 
 * Add a new item to the stock:
@@ -57,6 +59,11 @@ curl --location 'localhost:8080/api/items' \
 * List all items in the stock:
 ```
 curl --location 'localhost:8080/api/items'
+```
+
+* List all items in the stock as of date:
+```
+curl --location 'localhost:8080/api/items/as-of/2023-03-01'
 ```
 
 Please bear in mind this in under development and not all features are accessible via the web API. Stay tuned as we add them! :)
