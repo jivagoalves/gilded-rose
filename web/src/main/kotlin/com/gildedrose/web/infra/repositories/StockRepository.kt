@@ -1,4 +1,4 @@
-package com.gildedrose.web.repositories
+package com.gildedrose.web.infra.repositories
 
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid

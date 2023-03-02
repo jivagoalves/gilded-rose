@@ -1,4 +1,4 @@
-package com.gildedrose.web.repositories
+package com.gildedrose.web.infra.repositories
 
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
