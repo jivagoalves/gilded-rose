@@ -1,5 +1,8 @@
 package com.gildedrose.domain.items
 
+import arrow.core.invalidNel
+import com.gildedrose.domain.items.Name.BlankName
+import com.gildedrose.domain.items.Name.TooLong
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -29,6 +32,28 @@ class NameTest {
         @Test
         fun `should not be valid`() {
             assertNull(N(""))
+        }
+    }
+
+
+    @Test
+    fun `should not allow name longer than 255`() {
+        assertEquals(N("a".repeat(255))!!, N("a".repeat(255))!!)
+        assertNull(N("a".repeat(256)))
+    }
+
+
+    @Nested
+    @DisplayName("::validatedFrom")
+    inner class ValidationTest {
+        @Test
+        fun `should return blank name validation error`() {
+            assertEquals(BlankName.invalidNel(), Name.validatedFrom(""))
+        }
+
+        @Test
+        fun `should return too long validation error`() {
+            assertEquals(TooLong.invalidNel(), Name.validatedFrom("a".repeat(256)))
         }
     }
 }
