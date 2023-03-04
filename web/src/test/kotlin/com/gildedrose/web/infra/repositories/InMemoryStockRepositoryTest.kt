@@ -1,4 +1,4 @@
-package com.gildedrose.web.repositories
+package com.gildedrose.web.infra.repositories
 
 import com.gildedrose.domain.contracts.OneOf
 import com.gildedrose.domain.contracts.Valid
@@ -6,7 +6,6 @@ import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.web.infra.repositories.InMemoryStockRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
