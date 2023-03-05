@@ -5,6 +5,7 @@ import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.aging.Aging
+import com.gildedrose.domain.contracts.lifecycle.LegendaryLife
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.plus
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -120,6 +121,19 @@ class ValidItemTest {
         @Test
         fun `should remember sell in as of date across months`() {
             assertEquals(33.days, orange.asOf(asOfDate).sellIn)
+        }
+
+
+        private val sulfuras = ValidItem(
+            name = N("Sulfuras")!!,
+            lifecycle = JustValid(Valid(LegendaryLife(
+                LocalDate.MAX.minusDays(1)
+            ))!!),
+            quality = LegendaryQuality.of(80)
+        )
+        @Test
+        fun `should calculate sell in for legendary items`() {
+            assertEquals(1.day, sulfuras.sellIn)
         }
     }
 

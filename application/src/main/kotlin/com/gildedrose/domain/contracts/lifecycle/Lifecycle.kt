@@ -2,6 +2,7 @@ package com.gildedrose.domain.contracts.lifecycle
 
 import com.gildedrose.domain.contracts.Expirable
 import com.gildedrose.domain.contracts.Validatable
+import com.gildedrose.plus
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.time.Duration
@@ -25,8 +26,8 @@ interface Lifecycle : Validatable, Expirable {
 
     private val daysOfPeriod: Long
         get() = if (!isExpired)
-            ChronoUnit.DAYS.between(registeredOn, sellBy.plusDays(1))
+            ChronoUnit.DAYS.between(registeredOn, sellBy + 1.days)
         else
-            ChronoUnit.DAYS.between(sellBy.plusDays(1), registeredOn)
+            ChronoUnit.DAYS.between(sellBy + 1.days, registeredOn)
 
 }

@@ -3,6 +3,7 @@ package com.gildedrose.domain.items
 import com.gildedrose.domain.contracts.OneOf
 import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
+import com.gildedrose.plus
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.time.Duration
@@ -38,6 +39,6 @@ private class SellInAsOfDate(private var date: LocalDate, private val sellBy: Lo
     }
 
     private fun durationInDaysBetween(startDate: LocalDate, endDate: LocalDate): Duration =
-        ChronoUnit.DAYS.between(startDate, endDate.plusDays(1)).days
+        ChronoUnit.DAYS.between(startDate, endDate + 1.days).days
 
 }
