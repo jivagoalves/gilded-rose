@@ -3,9 +3,8 @@ package com.gildedrose.web.api
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.gildedrose.domain.items.Item
 import com.gildedrose.domain.items.ValidationError
-import com.gildedrose.usecases.IAddItemToStock
-import com.gildedrose.usecases.IGetStock
-import com.gildedrose.usecases.ItemDTO
+import com.gildedrose.usecases.*
+import io.swagger.v3.oas.annotations.Hidden
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -24,7 +23,8 @@ private fun <E> List<E>.toJSON(): String =
 @RequestMapping(ITEMS_PATH)
 class ItemsController(
     val getStock: IGetStock,
-    val addItemToStock: IAddItemToStock
+    val addItemToStock: IAddItemToStock,
+    val deleteItemFromStock: IDeleteItemFromStock
 ) {
     @GetMapping
     fun getItems(): List<ItemDTOResponse> =
@@ -51,6 +51,15 @@ class ItemsController(
                     .body(EMPTY)
             }
         )
+
+    @Hidden
+    @DeleteMapping("/{id}")
+    fun deleteItem(@PathVariable id: Long): ResponseEntity<Nothing> {
+        deleteItemFromStock.deleteById(ItemId.of(id)!!)
+        return ResponseEntity
+            .noContent()
+            .build()
+    }
 }
 
 data class ItemDTORequest(

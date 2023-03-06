@@ -1,10 +1,7 @@
 package com.gildedrose.web.infra.configuration
 
 import com.gildedrose.repositories.IStockRepository
-import com.gildedrose.usecases.AddItemToStock
-import com.gildedrose.usecases.GetStock
-import com.gildedrose.usecases.IAddItemToStock
-import com.gildedrose.usecases.IGetStock
+import com.gildedrose.usecases.*
 import com.gildedrose.web.infra.repositories.InMemoryStockRepository
 import com.gildedrose.web.infra.repositories.StockRepository
 import com.gildedrose.web.infra.repositories.StockRepositoryAdapter
@@ -30,4 +27,8 @@ class ApplicationConfiguration {
     @Bean
     fun addItemToStock(stockRepository: IStockRepository): IAddItemToStock =
         AddItemToStock(stockRepository)
+
+    @Bean
+    fun deleteItemFromStock(): IDeleteItemFromStock =
+        DeleteItemFromStock()
 }

@@ -9,12 +9,16 @@ import com.gildedrose.domain.contracts.lifecycle.ValidShelfLife
 import com.gildedrose.domain.items.*
 import com.gildedrose.domain.items.ValidationError.*
 import com.gildedrose.usecases.IAddItemToStock
+import com.gildedrose.usecases.IDeleteItemFromStock
 import com.gildedrose.usecases.IGetStock
+import com.gildedrose.usecases.ItemId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.kotlin.doNothing
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -22,8 +26,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper
 import java.time.LocalDate
@@ -43,6 +46,9 @@ class ItemsControllerTest {
 
     @MockBean
     private lateinit var addItemToStock: IAddItemToStock
+
+    @MockBean
+    private lateinit var deleteItemFromStock: IDeleteItemFromStock
 
     private val jan1st = LocalDate.parse("2023-01-01")
     private val jan5th = LocalDate.parse("2023-01-05")
@@ -142,6 +148,23 @@ class ItemsControllerTest {
             .andExpect(jsonPath("\$[0]", `is`(Name.BlankName.description)))
             .andExpect(jsonPath("\$[1]", `is`(StandardQuality.InvalidQuality.description)))
             .andExpect(jsonPath("\$[2]", `is`(ValidShelfLife.InvalidLifecycle.description)))
+    }
+
+    @Test
+    fun `DELETE - should delete an existing item`() {
+        val id = ItemId.of(1)!!
+
+        doNothing()
+            .whenever(deleteItemFromStock)
+            .deleteById(id)
+
+        mockMvc.perform(
+            delete("$ITEMS_PATH/1")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isNoContent)
+
+        verify(deleteItemFromStock).deleteById(id)
     }
 
     private fun json(itemDTO: ItemDTORequest): String =
