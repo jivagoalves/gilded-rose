@@ -3,6 +3,8 @@ package com.gildedrose.usecases
 import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.Validated
+import arrow.core.valid
+import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.domain.items.Validation
 import com.gildedrose.domain.items.ValidationError
@@ -21,15 +23,17 @@ interface ItemDTO {
     data class ShelfLifeDTO(val registeredOn: String, val sellBy: String)
 }
 
+data class Persisted(val id: ItemId, val validItem: ValidItem)
+
 interface IAddItemToStock {
-    fun addItem(itemDTO: ItemDTO): Validated<List<ValidationError>, ValidItem>
+    fun addItem(itemDTO: ItemDTO): Validated<List<ValidationError>, Persisted>
 }
 
 class AddItemToStock(private val stockRepository: IStockRepository) : IAddItemToStock {
 
-    override fun addItem(itemDTO: ItemDTO): Validated<List<ValidationError>, ValidItem> =
+    override fun addItem(itemDTO: ItemDTO): Validated<List<ValidationError>, Persisted> =
         when (val vItem = Validation.validate(itemDTO)) {
-            is Valid -> vItem.also { stockRepository.save(it.value) }
+            is Valid -> vItem.let { stockRepository.save(it.value).valid() }
             is Invalid -> vItem
         }
 

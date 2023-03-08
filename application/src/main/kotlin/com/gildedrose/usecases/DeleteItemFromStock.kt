@@ -1,5 +1,7 @@
 package com.gildedrose.usecases
 
+import com.gildedrose.domain.items.ItemId
+
 interface IDeleteItemFromStock {
     fun deleteById(id: ItemId)
 }
@@ -7,11 +9,4 @@ interface IDeleteItemFromStock {
 class DeleteItemFromStock : IDeleteItemFromStock {
     override fun deleteById(id: ItemId): Nothing =
         TODO("Not implemented yet")
-}
-
-@JvmInline
-value class ItemId private constructor(val value: Long) {
-    companion object {
-        fun of(value: Long) : ItemId? = ItemId(value)
-    }
 }

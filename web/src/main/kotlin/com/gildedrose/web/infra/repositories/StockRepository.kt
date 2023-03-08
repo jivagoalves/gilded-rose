@@ -7,6 +7,8 @@ import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
+import com.gildedrose.domain.items.ItemId
+import com.gildedrose.usecases.Persisted
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -41,7 +43,7 @@ class StockRepositoryAdapter(
         }
     }
 
-    override fun save(validItem: ValidItem) {
+    override fun save(validItem: ValidItem): Persisted {
         stockRepository.save(
             ItemEntity(
                 validItem.name.value,
@@ -50,6 +52,7 @@ class StockRepositoryAdapter(
                 validItem.quality.value
             )
         )
+        return Persisted(ItemId.of(1)!!, validItem)
     }
 
 }

@@ -2,6 +2,7 @@ package com.gildedrose.web.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.gildedrose.domain.items.Item
+import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidationError
 import com.gildedrose.usecases.*
 import io.swagger.v3.oas.annotations.Hidden
@@ -45,9 +46,9 @@ class ItemsController(
                     .unprocessableEntity()
                     .body(validationErrors.map(ValidationError::description).toJSON())
             },
-            { _ ->
+            { item ->
                 ResponseEntity
-                    .created(URI(ITEMS_PATH))
+                    .created(URI("$ITEMS_PATH/${item.id}"))
                     .body(EMPTY)
             }
         )

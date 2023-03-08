@@ -8,10 +8,7 @@ import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.contracts.lifecycle.ValidShelfLife
 import com.gildedrose.domain.items.*
 import com.gildedrose.domain.items.ValidationError.*
-import com.gildedrose.usecases.IAddItemToStock
-import com.gildedrose.usecases.IDeleteItemFromStock
-import com.gildedrose.usecases.IGetStock
-import com.gildedrose.usecases.ItemId
+import com.gildedrose.usecases.*
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -110,7 +107,9 @@ class ItemsControllerTest {
             quality = StandardQuality.of(10)!!
         )
 
-        whenever(addItemToStock.addItem(itemDTO)).thenReturn(expectedItem.valid())
+        whenever(addItemToStock.addItem(itemDTO)).thenReturn(
+            Persisted(ItemId.of(1)!!, expectedItem).valid()
+        )
 
         mockMvc.perform(
             post(ITEMS_PATH)
@@ -118,7 +117,7 @@ class ItemsControllerTest {
                 .content(json(itemDTO))
         )
             .andExpect(status().isCreated)
-            .andExpect(header().string("location", ITEMS_PATH))
+            .andExpect(header().string("location", "$ITEMS_PATH/1"))
     }
 
     @Test
