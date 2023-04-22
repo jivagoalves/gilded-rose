@@ -3,11 +3,11 @@ package com.gildedrose.web.infra.repositories
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
+import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
-import com.gildedrose.domain.items.ItemId
 import com.gildedrose.usecases.Persisted
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -53,6 +53,10 @@ class StockRepositoryAdapter(
             )
         )
         return Persisted(ItemId.of(1)!!, validItem)
+    }
+
+    override fun deleteById(id: ItemId) {
+        TODO("Not yet implemented")
     }
 
 }

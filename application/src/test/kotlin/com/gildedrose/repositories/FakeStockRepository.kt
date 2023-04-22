@@ -1,7 +1,7 @@
 package com.gildedrose.repositories
 
-import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.domain.items.ItemId
+import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.usecases.Persisted
 
 class FakeStockRepository(
@@ -14,5 +14,9 @@ class FakeStockRepository(
     override fun save(validItem: ValidItem): Persisted {
         entries.add(validItem)
         return Persisted(ItemId.of(1)!!, validItem)
+    }
+
+    override fun deleteById(id: ItemId) {
+        entries.clear()
     }
 }

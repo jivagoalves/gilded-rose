@@ -1,8 +1,8 @@
 package com.gildedrose.web.infra.repositories
 
+import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
-import com.gildedrose.domain.items.ItemId
 import com.gildedrose.usecases.Persisted
 
 class InMemoryStockRepository : IStockRepository {
@@ -13,6 +13,10 @@ class InMemoryStockRepository : IStockRepository {
     override fun save(validItem: ValidItem): Persisted {
         entries.add(validItem)
         return Persisted(ItemId.of(1)!!, validItem)
+    }
+
+    override fun deleteById(id: ItemId) {
+        TODO("Not yet implemented")
     }
 
 }

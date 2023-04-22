@@ -29,6 +29,6 @@ class ApplicationConfiguration {
         AddItemToStock(stockRepository)
 
     @Bean
-    fun deleteItemFromStock(): IDeleteItemFromStock =
-        DeleteItemFromStock()
+    fun deleteItemFromStock(stockRepository: IStockRepository): IDeleteItemFromStock =
+        DeleteItemFromStock(stockRepository)
 }
