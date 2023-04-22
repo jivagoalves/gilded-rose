@@ -38,9 +38,9 @@ Run the web app (API) with:
 ./gradlew bootRun
 ```
 
-## Items API
+## Stock API
 
-[Swagger UI](http://localhost:8080/swagger-ui/index.html)
+[Swagger UI](http://localhost:8080/swagger-ui/index.html) | [Postman](Stock%20API.postman.json)
 
 You can now:
 
