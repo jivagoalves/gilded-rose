@@ -4,9 +4,11 @@ import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
+import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
+import com.gildedrose.usecases.StockEntry
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -35,7 +37,8 @@ class StockTest {
     inner class WhenListOfItemsIsNotEmpty {
         private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife.NOW)!!)
         private val item = ValidItem(N("Apple")!!, lifecycle, StandardQuality.FIFTY)
-        private val stock = Stock.of(listOf(item))
+        private val entry = StockEntry(ItemId.random(), item)
+        private val stock = Stock.of(listOf(entry))
 
         @Test
         fun `should have size different from zero`() {
@@ -47,7 +50,7 @@ class StockTest {
             assertEquals(
                 Stock.of(
                     listOf(
-                        item.age()
+                        entry.age()
                     )
                 ),
                 stock.age()
@@ -62,7 +65,8 @@ class StockTest {
         private val jan5th: LocalDate = LocalDate.parse("2023-01-05")
         private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife(jan1st, jan5th))!!)
         private val item = ValidItem(N("Apple")!!, lifecycle, StandardQuality.FIFTY)
-        private val stock = Stock.of(listOf(item))
+        private val entry = StockEntry(ItemId.random(), item)
+        private val stock = Stock.of(listOf(entry))
 
         @Test
         fun `should age the stock as of given date`() {

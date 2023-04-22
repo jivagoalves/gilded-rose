@@ -6,6 +6,7 @@ import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
+import com.gildedrose.usecases.StockEntry
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -20,8 +21,8 @@ class InMemoryStockRepositoryTest {
 
     @Test
     fun `should persist the stock`() {
-        assertEquals(emptyList<ValidItem>(), repo.findAll())
+        assertEquals(emptyList<StockEntry>(), repo.findAll())
         repo.save(validItem)
-        assertEquals(listOf(validItem), repo.findAll())
+        assertEquals(listOf(validItem), repo.findAll().map(StockEntry::item))
     }
 }

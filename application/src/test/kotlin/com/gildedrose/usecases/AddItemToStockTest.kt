@@ -54,6 +54,6 @@ class AddItemToStockTest {
         AddItemToStock(fakeStockRepo).addItem(invalidItemDTO)
         assertEquals(emptyList(), fakeStockRepo.findAll())
         AddItemToStock(fakeStockRepo).addItem(validItemDTO)
-        assertEquals(listOf(validItem), fakeStockRepo.findAll())
+        assertEquals(listOf(validItem), fakeStockRepo.findAll().map(StockEntry::item))
     }
 }

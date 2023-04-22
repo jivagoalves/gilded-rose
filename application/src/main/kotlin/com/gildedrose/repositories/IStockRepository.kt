@@ -2,10 +2,10 @@ package com.gildedrose.repositories
 
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.usecases.Persisted
+import com.gildedrose.usecases.StockEntry
 
 interface IStockRepository {
-    fun findAll(): List<ValidItem>
-    fun save(validItem: ValidItem): Persisted
+    fun findAll(): List<StockEntry>
+    fun save(validItem: ValidItem): StockEntry
     fun deleteById(id: ItemId)
 }

@@ -53,11 +53,18 @@ class ItemsControllerTest {
 
     @Test
     fun `GET - should list all items`() {
-        val items: List<Item> = listOf(
-            ValidItem(N("Orange")!!, JustValid(Valid(ShelfLife(jan1st, jan5th))!!), StandardQuality.of(9)!!),
+        val entries: List<StockEntry> = listOf(
+            StockEntry(
+                ItemId.random(),
+                ValidItem(
+                    N("Orange")!!,
+                    JustValid(Valid(ShelfLife(jan1st, jan5th))!!),
+                    StandardQuality.of(9)!!
+                ),
+            )
         )
 
-        whenever(getStock.asOf(now)).thenReturn(Stock.of(items))
+        whenever(getStock.asOf(now)).thenReturn(Stock.of(entries))
 
         mockMvc
             .perform(get(ITEMS_PATH).contentType(MediaType.APPLICATION_JSON))
@@ -76,11 +83,14 @@ class ItemsControllerTest {
 
         @Test
         fun `GET - should list all items as of date`() {
-            val items: List<Item> = listOf(
-                ValidItem(N("Orange")!!, JustValid(Valid(ShelfLife(jan1st, jan5th))!!), StandardQuality.of(9)!!),
+            val entries: List<StockEntry> = listOf(
+                StockEntry(
+                    ItemId.random(),
+                    ValidItem(N("Orange")!!, JustValid(Valid(ShelfLife(jan1st, jan5th))!!), StandardQuality.of(9)!!),
+                )
             )
 
-            whenever(getStock.asOf(tomorrow)).thenReturn(Stock.of(items))
+            whenever(getStock.asOf(tomorrow)).thenReturn(Stock.of(entries))
 
             mockMvc
                 .perform(get(url).contentType(MediaType.APPLICATION_JSON))
@@ -101,14 +111,18 @@ class ItemsControllerTest {
             registeredOn = "2023-01-01",
             sellBy = "2023-01-05",
         )
-        val expectedItem = ValidItem(
-            name = N("Orange")!!,
-            lifecycle = JustValid(Valid(ShelfLife(jan1st, jan5th))!!),
-            quality = StandardQuality.of(10)!!
-        )
+        val expectedEntry =
+            StockEntry(
+                ItemId.random(),
+                ValidItem(
+                    name = N("Orange")!!,
+                    lifecycle = JustValid(Valid(ShelfLife(jan1st, jan5th))!!),
+                    quality = StandardQuality.of(10)!!
+                )
+            )
 
         whenever(addItemToStock.addItem(itemDTO)).thenReturn(
-            Persisted(ItemId.of(1)!!, expectedItem).valid()
+            expectedEntry.valid()
         )
 
         mockMvc.perform(
@@ -117,7 +131,7 @@ class ItemsControllerTest {
                 .content(json(itemDTO))
         )
             .andExpect(status().isCreated)
-            .andExpect(header().string("location", "$ITEMS_PATH/1"))
+            .andExpect(header().string("location", "$ITEMS_PATH/${expectedEntry.id}"))
     }
 
     @Test
@@ -151,14 +165,14 @@ class ItemsControllerTest {
 
     @Test
     fun `DELETE - should delete an existing item`() {
-        val id = ItemId.of(1)!!
+        val id = ItemId.random()
 
         doNothing()
             .whenever(deleteItemFromStock)
             .deleteById(id)
 
         mockMvc.perform(
-            delete("$ITEMS_PATH/1")
+            delete("$ITEMS_PATH/$id")
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isNoContent)

@@ -61,6 +61,7 @@ class WebApplicationIT {
             """
             [
                 {
+                    "id": "1",
                     "name": "Orange",
                     "quality": 9,
                     "sellIn": 2

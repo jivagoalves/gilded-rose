@@ -1,7 +1,6 @@
 package com.gildedrose.web.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.gildedrose.domain.items.Item
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidationError
 import com.gildedrose.usecases.*
@@ -33,7 +32,7 @@ class ItemsController(
 
     @GetMapping("$AS_OF_PATH/{date}")
     fun getItemsAsOf(@PathVariable date: LocalDate): List<ItemDTOResponse> =
-        getStock.asOf(date).map(ItemDTOResponse::fromItem)
+        getStock.asOf(date).map(ItemDTOResponse::fromStockEntry)
 
     @PostMapping(
         consumes = [MediaType.APPLICATION_JSON_VALUE],
@@ -72,16 +71,18 @@ data class ItemDTORequest(
 
 @Suppress("unused")
 class ItemDTOResponse(
+    val id: String,
     val name: String,
     val quality: Int,
     val sellIn: Int,
 ) {
     companion object {
-        fun fromItem(item: Item): ItemDTOResponse =
+        fun fromStockEntry(entry: StockEntry): ItemDTOResponse =
             ItemDTOResponse(
-                item.name.toString(),
-                item.quality.value,
-                item.sellIn.toInt(DurationUnit.DAYS)
+                entry.id.toString(),
+                entry.item.name.toString(),
+                entry.item.quality.value,
+                entry.item.sellIn.toInt(DurationUnit.DAYS)
             )
     }
 }

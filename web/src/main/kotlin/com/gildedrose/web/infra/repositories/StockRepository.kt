@@ -8,7 +8,7 @@ import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
-import com.gildedrose.usecases.Persisted
+import com.gildedrose.usecases.StockEntry
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -33,17 +33,19 @@ class StockRepositoryAdapter(
     private val stockRepository: StockRepository
 ) : IStockRepository {
 
-    override fun findAll(): List<ValidItem> {
-        return stockRepository.findAll().map {
-            ValidItem(
-                N(it.name)!!,
-                JustValid(Valid(ShelfLife(it.registeredOn, it.sellBy))!!),
-                StandardQuality.of(it.quality)!!
+    override fun findAll(): List<StockEntry> =
+        stockRepository.findAll().map {
+            StockEntry(
+                ItemId.of(it.id!!)!!,
+                ValidItem(
+                    N(it.name)!!,
+                    JustValid(Valid(ShelfLife(it.registeredOn, it.sellBy))!!),
+                    StandardQuality.of(it.quality)!!
+                )
             )
         }
-    }
 
-    override fun save(validItem: ValidItem): Persisted {
+    override fun save(validItem: ValidItem): StockEntry =
         stockRepository.save(
             ItemEntity(
                 validItem.name.value,
@@ -51,12 +53,12 @@ class StockRepositoryAdapter(
                 validItem.lifecycle.value.sellBy,
                 validItem.quality.value
             )
-        )
-        return Persisted(ItemId.of(1)!!, validItem)
-    }
+        ).let {
+            StockEntry(ItemId.of(it.id!!)!!, validItem)
+        }
 
     override fun deleteById(id: ItemId) {
-        TODO("Not yet implemented")
+        stockRepository.deleteById(id.value)
     }
 
 }

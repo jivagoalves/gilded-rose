@@ -9,6 +9,7 @@ import com.gildedrose.domain.contracts.aging.Aging
 import com.gildedrose.domain.contracts.lifecycle.LegendaryLife
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.items.*
+import com.gildedrose.usecases.StockEntry
 import java.time.LocalDate
 
 const val ITERATIONS = 11
@@ -28,7 +29,9 @@ val STOCK = Stock.of(
         ValidItem(N("Aged Brie")!!, JustValid(validShelfLife), StandardQuality.of(42)!!, Aging.Improvement),
         ValidItem(N("Pass")!!, JustValid(validShelfLife), StandardQuality.of(42)!!, Aging.TimedImprovement),
         ExpiredItem(N("Apple")!!, JustExpired(expiredShelfLife), StandardQuality.of(13)!!)
-    )
+    ).map {
+        StockEntry(ItemId.random(), it)
+    }
 )
 
 

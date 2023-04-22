@@ -39,8 +39,8 @@ class DeleteItemFromStockTest {
     @Test
     fun `should delete by id from the stock repository`() {
         AddItemToStock(fakeStockRepo).addItem(validItemDTO)
-        assertEquals(listOf(validItem), fakeStockRepo.findAll())
-        DeleteItemFromStock(fakeStockRepo).deleteById(ItemId.of(1)!!)
+        assertEquals(listOf(validItem), fakeStockRepo.findAll().map(StockEntry::item))
+        DeleteItemFromStock(fakeStockRepo).deleteById(ItemId.random())
         assertEquals(emptyList(), fakeStockRepo.findAll())
     }
 }
