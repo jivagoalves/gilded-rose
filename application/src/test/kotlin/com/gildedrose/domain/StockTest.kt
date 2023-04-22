@@ -8,7 +8,6 @@ import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.usecases.StockEntry
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

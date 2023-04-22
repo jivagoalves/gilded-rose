@@ -1,6 +1,7 @@
 package com.gildedrose.domain
 
-import com.gildedrose.usecases.StockEntry
+import com.gildedrose.domain.items.Item
+import com.gildedrose.domain.items.ItemId
 import java.time.LocalDate
 
 @JvmInline
@@ -19,4 +20,10 @@ value class Stock private constructor(
         fun of(entries: List<StockEntry>): Stock = Stock(entries)
     }
 
+}
+
+data class StockEntry(val id: ItemId, val item: Item) {
+    override fun toString() = item.toString()
+    fun age() = copy(item = item.age())
+    fun asOf(date: LocalDate) = copy(item = item.asOf(date))
 }

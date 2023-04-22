@@ -3,7 +3,7 @@ package com.gildedrose.web.infra.repositories
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
-import com.gildedrose.usecases.StockEntry
+import com.gildedrose.domain.StockEntry
 
 class InMemoryStockRepository : IStockRepository {
     private val entries = mutableListOf<StockEntry>()

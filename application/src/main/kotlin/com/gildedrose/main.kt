@@ -9,7 +9,7 @@ import com.gildedrose.domain.contracts.aging.Aging
 import com.gildedrose.domain.contracts.lifecycle.LegendaryLife
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
 import com.gildedrose.domain.items.*
-import com.gildedrose.usecases.StockEntry
+import com.gildedrose.domain.StockEntry
 import java.time.LocalDate
 
 const val ITERATIONS = 11

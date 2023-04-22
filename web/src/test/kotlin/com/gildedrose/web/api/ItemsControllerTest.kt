@@ -2,6 +2,7 @@ package com.gildedrose.web.api
 
 import arrow.core.*
 import com.gildedrose.domain.Stock
+import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife

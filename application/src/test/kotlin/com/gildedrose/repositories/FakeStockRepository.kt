@@ -2,7 +2,7 @@ package com.gildedrose.repositories
 
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.usecases.StockEntry
+import com.gildedrose.domain.StockEntry
 
 class FakeStockRepository(
     private val entries: MutableList<StockEntry> = mutableListOf()

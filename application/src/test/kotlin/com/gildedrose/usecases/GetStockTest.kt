@@ -1,6 +1,7 @@
 package com.gildedrose.usecases
 
 import com.gildedrose.domain.Stock
+import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.contracts.OneOf
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife

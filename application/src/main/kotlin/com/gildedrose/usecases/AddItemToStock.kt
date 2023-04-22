@@ -4,12 +4,10 @@ import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.Validated
 import arrow.core.valid
-import com.gildedrose.domain.items.Item
-import com.gildedrose.domain.items.ItemId
+import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.items.Validation
 import com.gildedrose.domain.items.ValidationError
 import com.gildedrose.repositories.IStockRepository
-import java.time.LocalDate
 
 interface ItemDTO {
     val name: String
@@ -22,12 +20,6 @@ interface ItemDTO {
             ShelfLifeDTO(registeredOn, sellBy)
 
     data class ShelfLifeDTO(val registeredOn: String, val sellBy: String)
-}
-
-data class StockEntry(val id: ItemId, val item: Item) {
-    override fun toString() = item.toString()
-    fun age() = copy(item = item.age())
-    fun asOf(date: LocalDate) = copy(item = item.asOf(date))
 }
 
 interface IAddItemToStock {

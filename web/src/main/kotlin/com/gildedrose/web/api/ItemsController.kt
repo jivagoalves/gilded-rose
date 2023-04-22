@@ -1,6 +1,7 @@
 package com.gildedrose.web.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidationError
 import com.gildedrose.usecases.*

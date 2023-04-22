@@ -8,7 +8,7 @@ import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
-import com.gildedrose.usecases.StockEntry
+import com.gildedrose.domain.StockEntry
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
