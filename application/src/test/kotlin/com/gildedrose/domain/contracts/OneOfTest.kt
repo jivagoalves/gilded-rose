@@ -11,13 +11,13 @@ import kotlin.test.assertNotEquals
 class OneOfTest {
     @Nested
     inner class JustValidTest {
-        private inner class V(val value: String) : Validatable {
+        private inner class V : Validatable {
             override val isValid: Boolean
                 get() = true
         }
 
-        private val v1 = V("v1")
-        private val v2 = V("v2")
+        private val v1 = V()
+        private val v2 = V()
 
         @Nested
         @DisplayName("VO behaviour")
@@ -40,13 +40,13 @@ class OneOfTest {
 
     @Nested
     inner class JustExpiredTest {
-        private inner class E(val value: String) : Expirable {
+        private inner class E : Expirable {
             override val isExpired: Boolean
                 get() = true
         }
 
-        private val e1 = E("v1")
-        private val e2 = E("v2")
+        private val e1 = E()
+        private val e2 = E()
 
         @Nested
         @DisplayName("VO behaviour")
