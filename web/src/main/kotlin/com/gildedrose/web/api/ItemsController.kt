@@ -5,7 +5,6 @@ import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidationError
 import com.gildedrose.usecases.*
-import io.swagger.v3.oas.annotations.Hidden
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -53,7 +52,6 @@ class ItemsController(
             }
         )
 
-    @Hidden
     @DeleteMapping("/{id}")
     fun deleteItem(@PathVariable id: Long): ResponseEntity<Nothing> =
         if (deleteItemFromStock.deleteById(ItemId.of(id))) {

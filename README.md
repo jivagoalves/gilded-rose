@@ -66,6 +66,11 @@ curl --location 'localhost:8080/api/items'
 curl --location 'localhost:8080/api/items/as-of/2023-03-01'
 ```
 
+* Remove items from the stock:
+```
+curl --location --request DELETE 'localhost:8080/api/items/1'
+```
+
 Please bear in mind this in under development and not all features are accessible via the web API. Stay tuned as we add them! :)
 
 ## Architecture
