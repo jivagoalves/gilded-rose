@@ -1,14 +1,15 @@
 package com.gildedrose.web.infra.repositories
 
+import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.contracts.OneOf.JustValid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ShelfLife
+import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.domain.StockEntry
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 
@@ -41,19 +42,40 @@ class StockRepositoryAdapterTest(
         )
     }
 
-    @Test
-    fun `delete - should delete item by id`() {
-        stockRepositoryAdapter.save(apple)
-        val orangeEntry = stockRepositoryAdapter.save(orange)
-        assertEquals(
-            setOf(apple, orange),
-            stockRepositoryAdapter.findAll().map(StockEntry::item).toSet()
-        )
-        stockRepositoryAdapter.deleteById(orangeEntry.id)
-        assertEquals(
-            setOf(apple),
-            stockRepositoryAdapter.findAll().map(StockEntry::item).toSet()
-        )
+    @Nested
+    @DisplayName("deleteById - when the item exists")
+    inner class DeleteById {
+        private lateinit var orangeEntry: StockEntry
+
+        @BeforeEach
+        fun beforeEach() {
+            stockRepositoryAdapter.save(apple)
+            orangeEntry = stockRepositoryAdapter.save(orange)
+        }
+
+        @Test
+        fun `should delete the item by id`() {
+            assertEquals(
+                setOf(apple, orange),
+                stockRepositoryAdapter.findAll().map(StockEntry::item).toSet()
+            )
+
+            stockRepositoryAdapter.deleteById(orangeEntry.id)
+
+            assertEquals(
+                setOf(apple),
+                stockRepositoryAdapter.findAll().map(StockEntry::item).toSet()
+            )
+        }
+
+        @Test
+        fun `should return true`() {
+            assertTrue(stockRepositoryAdapter.deleteById(orangeEntry.id))
+        }
     }
 
+    @Test
+    fun `deleteById - should return false for items that don't exist`() {
+        assertFalse(stockRepositoryAdapter.deleteById(ItemId.random()))
+    }
 }

@@ -1,9 +1,9 @@
 package com.gildedrose.web.infra.repositories
 
+import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.IStockRepository
-import com.gildedrose.domain.StockEntry
 
 class InMemoryStockRepository : IStockRepository {
     private val entries = mutableListOf<StockEntry>()
@@ -15,7 +15,7 @@ class InMemoryStockRepository : IStockRepository {
             entries.add(it)
         }
 
-    override fun deleteById(id: ItemId) {
+    override fun deleteById(id: ItemId): Boolean {
         TODO("Not yet implemented")
     }
 

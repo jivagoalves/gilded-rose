@@ -15,8 +15,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.kotlin.doNothing
-import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -168,17 +166,26 @@ class ItemsControllerTest {
     fun `DELETE - should delete an existing item`() {
         val id = ItemId.random()
 
-        doNothing()
-            .whenever(deleteItemFromStock)
-            .deleteById(id)
+        whenever(deleteItemFromStock.deleteById(id)).thenReturn(true)
 
         mockMvc.perform(
             delete("$ITEMS_PATH/$id")
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isNoContent)
+    }
 
-        verify(deleteItemFromStock).deleteById(id)
+    @Test
+    fun `DELETE - should return 404 when the item does not exist`() {
+        val id = ItemId.random()
+
+        whenever(deleteItemFromStock.deleteById(id)).thenReturn(false)
+
+        mockMvc.perform(
+            delete("$ITEMS_PATH/$id")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isNotFound)
     }
 
     private fun json(itemDTO: ItemDTORequest): String =

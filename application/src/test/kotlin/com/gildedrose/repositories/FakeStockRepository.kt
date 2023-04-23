@@ -1,8 +1,8 @@
 package com.gildedrose.repositories
 
+import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.domain.items.ValidItem
-import com.gildedrose.domain.StockEntry
 
 class FakeStockRepository(
     private val entries: MutableList<StockEntry> = mutableListOf()
@@ -16,7 +16,8 @@ class FakeStockRepository(
             entries.add(it)
         }
 
-    override fun deleteById(id: ItemId) {
+    override fun deleteById(id: ItemId): Boolean {
         entries.clear()
+        return true
     }
 }

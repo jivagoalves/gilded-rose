@@ -55,12 +55,16 @@ class ItemsController(
 
     @Hidden
     @DeleteMapping("/{id}")
-    fun deleteItem(@PathVariable id: Long): ResponseEntity<Nothing> {
-        deleteItemFromStock.deleteById(ItemId.of(id)!!)
-        return ResponseEntity
-            .noContent()
-            .build()
-    }
+    fun deleteItem(@PathVariable id: Long): ResponseEntity<Nothing> =
+        if (deleteItemFromStock.deleteById(ItemId.of(id))) {
+            ResponseEntity
+                .noContent()
+                .build()
+        } else {
+            ResponseEntity
+                .notFound()
+                .build()
+        }
 }
 
 data class ItemDTORequest(
