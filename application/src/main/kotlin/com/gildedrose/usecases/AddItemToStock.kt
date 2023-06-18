@@ -22,7 +22,7 @@ interface ItemDTO {
     data class ShelfLifeDTO(val registeredOn: String, val sellBy: String)
 }
 
-interface IAddItemToStock {
+fun interface IAddItemToStock {
     fun addItem(itemDTO: ItemDTO): Validated<List<ValidationError>, StockEntry>
 }
 

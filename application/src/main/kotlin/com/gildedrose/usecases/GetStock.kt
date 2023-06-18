@@ -4,7 +4,7 @@ import com.gildedrose.domain.Stock
 import com.gildedrose.repositories.IStockRepository
 import java.time.LocalDate
 
-interface IGetStock {
+fun interface IGetStock {
     fun asOf(date: LocalDate): Stock
 }
 

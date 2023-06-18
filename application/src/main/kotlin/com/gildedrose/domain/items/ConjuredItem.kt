@@ -1,7 +1,6 @@
 package com.gildedrose.domain.items
 
 import com.gildedrose.domain.contracts.OneOf.JustValid
-import com.gildedrose.domain.contracts.aging.Ageable
 import com.gildedrose.domain.contracts.aging.Aging
 import com.gildedrose.domain.contracts.lifecycle.Lifecycle
 
@@ -14,9 +13,8 @@ fun conjuredItem(
     ValidItem(name, lifecycle, quality, conjuredAging(aging))
 
 private fun conjuredAging(aging: Aging): Aging =
-    object : Aging {
-        override fun age(ageable: Ageable): Quality =
-            aging.age(ageable).let { newQuality ->
-                aging.age(ageable.withQuality(newQuality))
-            }
+    Aging {
+        aging.age(it).let { newQuality ->
+            aging.age(it.withQuality(newQuality))
+        }
     }

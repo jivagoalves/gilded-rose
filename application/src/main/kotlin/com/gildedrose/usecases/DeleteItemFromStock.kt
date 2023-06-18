@@ -3,7 +3,7 @@ package com.gildedrose.usecases
 import com.gildedrose.domain.items.ItemId
 import com.gildedrose.repositories.IStockRepository
 
-interface IDeleteItemFromStock {
+fun interface IDeleteItemFromStock {
     fun deleteById(id: ItemId): Boolean
 }
 

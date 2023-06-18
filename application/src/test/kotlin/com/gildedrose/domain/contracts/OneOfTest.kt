@@ -53,6 +53,8 @@ class OneOfTest {
         inner class ValueObjectTest {
             @Test
             fun `should be equal based on its value`() {
+                val justExpired = JustExpired(Expired(e1)!!)
+                assertEquals(justExpired, justExpired)
                 assertEquals(JustExpired(Expired(e1)!!), JustExpired(Expired(e1)!!))
                 assertEquals(JustExpired(Expired(e2)!!), JustExpired(Expired(e2)!!))
                 assertNotEquals(JustExpired(Expired(e1)!!), JustExpired(Expired(e2)!!))

@@ -13,12 +13,13 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 class StockTest {
     @Nested
     @DisplayName("when there are no items")
     inner class WhenListOfItemsIsEmpty {
-        private val stock = Stock.of(emptyList())
+        private val stock = Stock.EMPTY
 
         @Test
         fun `should have size zero`() {
@@ -72,5 +73,49 @@ class StockTest {
             assertEquals(stock, stock.asOf(jan1st))
             assertEquals(stock.age(), stock.asOf(jan1st.plusDays(1)))
         }
+    }
+}
+
+class StockEntryTest {
+    private val lifecycle: JustValid<Lifecycle> = JustValid(Valid(ShelfLife.NOW)!!)
+    private val apple = ValidItem(N("Apple")!!, lifecycle, StandardQuality.FIFTY)
+    private val orange = ValidItem(N("Orange")!!, lifecycle, StandardQuality.FIFTY)
+    private val entry = StockEntry(ItemId.random(), apple)
+    private val now = LocalDate.now()
+
+    @Test
+    fun `should kill mutation test`() {
+        assertEquals(
+            1,
+            StockEntry(ItemId.of(1), apple).id.value,
+        )
+        assertEquals(
+            "Apple",
+            StockEntry(ItemId.of(1), apple).item.name.value,
+        )
+    }
+
+
+    @Test
+    fun `should be a VO`() {
+        assertEquals(
+            StockEntry(ItemId.of(1), apple),
+            StockEntry(ItemId.of(1), apple),
+        )
+        assertNotEquals(
+            StockEntry(ItemId.of(1), apple),
+            StockEntry(ItemId.of(2), apple),
+        )
+        assertNotEquals(
+            StockEntry(ItemId.of(1), apple),
+            StockEntry(ItemId.of(1), orange),
+        )
+    }
+
+    @Test
+    fun `should wrap item`() {
+        assertEquals(apple.toString(), entry.toString())
+        assertEquals(apple.age(), entry.age().item)
+        assertEquals(apple.asOf(now), entry.asOf(now).item)
     }
 }
