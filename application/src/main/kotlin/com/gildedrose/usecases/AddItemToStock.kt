@@ -1,9 +1,6 @@
 package com.gildedrose.usecases
 
-import arrow.core.Invalid
-import arrow.core.Valid
 import arrow.core.Validated
-import arrow.core.valid
 import com.gildedrose.domain.StockEntry
 import com.gildedrose.domain.items.Validation
 import com.gildedrose.domain.items.ValidationError
@@ -29,9 +26,6 @@ fun interface IAddItemToStock {
 class AddItemToStock(private val stockRepository: IStockRepository) : IAddItemToStock {
 
     override fun addItem(itemDTO: ItemDTO): Validated<List<ValidationError>, StockEntry> =
-        when (val vItem = Validation.validate(itemDTO)) {
-            is Valid -> vItem.let { stockRepository.save(it.value).valid() }
-            is Invalid -> vItem
-        }
+        Validation.validate(itemDTO).map { stockRepository.save(it) }
 
 }
