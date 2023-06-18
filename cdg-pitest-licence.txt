@@ -1,0 +1,7 @@
+#Licence file for pitest extensions
+#Sat May 27 20:18:26 BST 2023
+expires=27/06/2023
+keyVersion=1
+signature=NTxDJ/KcKu7eMObIK8dVhitjLuBDdThH7bvinluFqgB9i6VKnedGhzyv0p+Lz3kaGtqJJ/PfzcgNQziWoqSUcOeqaeZ3+cV2dvINb8zBvD9dRtmht+Ir57vj+hGSv6iUNBLDkrKUsVu/ZEwbiNN9W2USP7FoUATMti3kkNbtXu4\=
+packages=com.gildedrose.*
+type=EVALUATION
