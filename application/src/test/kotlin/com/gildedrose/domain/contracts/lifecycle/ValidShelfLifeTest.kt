@@ -5,6 +5,7 @@ import arrow.core.valid
 import com.gildedrose.domain.contracts.Valid
 import com.gildedrose.domain.contracts.lifecycle.ValidShelfLife.InvalidLifecycle
 import com.gildedrose.usecases.ItemDTO
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals
@@ -31,6 +32,29 @@ class ValidShelfLifeTest {
             InvalidLifecycle.invalidNel(),
             ValidShelfLife.validatedFrom(invalidShelfLifeDTO)
         )
+        assertEquals(
+            InvalidLifecycle.invalidNel(),
+            ValidShelfLife.validatedFrom(ItemDTO.ShelfLifeDTO("invalid-date", today))
+        )
+        assertEquals(
+            InvalidLifecycle.invalidNel(),
+            ValidShelfLife.validatedFrom(ItemDTO.ShelfLifeDTO(today, "invalid-date"))
+        )
+    }
+
+    @Nested
+    inner class InvalidLifecycleTest {
+        @Test
+        fun `should have description and string representation`() {
+            assertEquals(
+                "Lifecycle is not valid",
+                InvalidLifecycle.description
+            )
+            assertEquals(
+                "InvalidLifecycle",
+                InvalidLifecycle.toString()
+            )
+        }
     }
 }
 

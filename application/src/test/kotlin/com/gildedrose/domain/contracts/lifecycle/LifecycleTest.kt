@@ -1,6 +1,7 @@
 package com.gildedrose.domain.contracts.lifecycle
 
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import java.time.LocalDate
@@ -31,5 +32,43 @@ class LifecycleTest {
         n: Int
     ) {
         assertEquals(n.days, lifecycleBetween(from, until).sellIn)
+    }
+
+    @Test
+    fun `should be valid when registration is before sell by date`() {
+        assertTrue(
+            lifecycleBetween(
+                LocalDate.parse("2022-01-01"),
+                LocalDate.parse("2022-01-02")
+            ).isValid
+        )
+        assertTrue(
+            lifecycleBetween(
+                LocalDate.parse("2022-01-02"),
+                LocalDate.parse("2022-01-02")
+            ).isValid
+        )
+        assertFalse(
+            lifecycleBetween(
+                LocalDate.parse("2022-01-03"),
+                LocalDate.parse("2022-01-02")
+            ).isValid
+        )
+    }
+
+    @Test
+    fun `should be expired when registration is after sell by date`() {
+        assertTrue(
+            lifecycleBetween(
+                LocalDate.parse("2022-01-02"),
+                LocalDate.parse("2022-01-01")
+            ).isExpired
+        )
+        assertFalse(
+            lifecycleBetween(
+                LocalDate.parse("2022-01-02"),
+                LocalDate.parse("2022-01-02")
+            ).isExpired
+        )
     }
 }
