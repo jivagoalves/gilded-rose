@@ -9,9 +9,12 @@ import com.gildedrose.domain.items.N
 import com.gildedrose.domain.items.StandardQuality
 import com.gildedrose.domain.items.ValidItem
 import com.gildedrose.repositories.FakeStockRepository
+import com.gildedrose.repositories.IStockRepository
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class DeleteItemFromStockTest {
     private val fakeStockRepo = FakeStockRepository()
@@ -43,5 +46,17 @@ class DeleteItemFromStockTest {
         assertEquals(listOf(validItem), fakeStockRepo.findAll().map(StockEntry::item))
         DeleteItemFromStock(fakeStockRepo).deleteById(ItemId.random())
         assertEquals(emptyList(), fakeStockRepo.findAll())
+    }
+
+    @Test
+    fun `should return true when saved successfully by the stock repository`() {
+        assertTrue(DeleteItemFromStock(repositoryStub(deleteById = true)).deleteById(ItemId.random()))
+        assertFalse(DeleteItemFromStock(repositoryStub(deleteById = false)).deleteById(ItemId.random()))
+    }
+
+    private fun repositoryStub(deleteById: Boolean) = object : IStockRepository {
+        override fun findAll(): List<StockEntry> = TODO("Unexpected call")
+        override fun save(validItem: ValidItem): StockEntry = TODO("Unexpected call")
+        override fun deleteById(id: ItemId): Boolean = deleteById
     }
 }

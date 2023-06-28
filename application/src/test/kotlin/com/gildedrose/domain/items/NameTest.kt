@@ -56,4 +56,22 @@ class NameTest {
             assertEquals(TooLong.invalidNel(), Name.validatedFrom("a".repeat(256)))
         }
     }
+
+    @Nested
+    inner class BlankNameTest {
+        @Test
+        fun `should have a description and string`() {
+            assertEquals("Name can't be blank", BlankName.description)
+            assertEquals("BlankName", BlankName.toString())
+        }
+    }
+
+    @Nested
+    inner class TooLongTest {
+        @Test
+        fun `should have a description and string`() {
+            assertEquals("Name is too long (> 255)", TooLong.description)
+            assertEquals("TooLong", TooLong.toString())
+        }
+    }
 }

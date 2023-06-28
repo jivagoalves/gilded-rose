@@ -1,7 +1,10 @@
 package com.gildedrose.domain.items
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class StandardQualityTest {
     @Test
@@ -48,6 +51,15 @@ class StandardQualityTest {
         assertNull(StandardQuality.of(51))
         for (value in 0..50) {
             assertNotNull(StandardQuality.of(value))
+        }
+    }
+
+    @Nested
+    inner class InvalidQualityTest {
+        @Test
+        fun `should have a description and string`() {
+            assertEquals("Quality must be between 0 and 50", StandardQuality.InvalidQuality.description)
+            assertEquals("InvalidQuality", StandardQuality.InvalidQuality.toString())
         }
     }
 }
